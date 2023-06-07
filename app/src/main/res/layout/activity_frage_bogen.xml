@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="4dp">
+
+    <TextView
+        android:id="@+id/selectModuleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:text="Select Module"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:contentDescription="Select Module"
+        android:id="@+id/moduleSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/selectModuleTextView"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+
+    <TextView
+        android:id="@+id/selectProfessorTextView"
+        android:text="Select Professor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/moduleSpinner"
+        android:layout_marginTop="16dp"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:contentDescription="Select Professor"
+        android:id="@+id/professorSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/selectProfessorTextView"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+
+<TextView
+    android:id="@+id/klausurTextView"
+    android:text="Klausur"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/professorSpinner"
+    android:layout_marginTop="16dp"
+    android:textSize="20sp"
+    android:textStyle="bold" />
+
+<RatingBar
+    android:isIndicator="true"
+    android:id="@+id/klausurRatingBar"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/klausurTextView"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:numStars="5"
+    android:stepSize="1" />
+
+<TextView
+    android:id="@+id/vorlesungTextView"
+    android:text="Vorlesung"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/klausurRatingBar"
+    android:layout_marginTop="16dp"
+    android:textSize="20sp"
+    android:textStyle="bold" />
+
+    <RatingBar
+        android:isIndicator="true"
+        android:id="@+id/vorlesungRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/vorlesungTextView"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:numStars="5"
+        android:stepSize="1" />
+
+<TextView
+    android:id="@+id/praktikumTextView"
+    android:text="Praktikum"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/vorlesungRatingBar"
+    android:layout_marginTop="16dp"
+    android:textSize="20sp"
+    android:textStyle="bold" />
+
+<RatingBar
+    android:isIndicator="true"
+    android:id="@+id/praktikumRatingBar"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/praktikumTextView"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:numStars="5"
+    android:stepSize="1" />
+
+<TextView
+    android:id="@+id/commentTextView"
+    android:text="Comment"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/praktikumRatingBar"
+    android:layout_marginTop="16dp"
+    android:textSize="20sp"
+    android:textStyle="bold" />
+
+<EditText
+    android:hint="Add Comment"
+    android:id="@+id/commentEditText"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:layout_below="@+id/commentTextView"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp" />
+
+    <Button
+        android:id="@+id/addRatingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/commentEditText"
+        android:layout_centerHorizontal="true"
+        android:text="Add Rating" />
+
+<com.google.android.material.bottomnavigation.BottomNavigationView
+    android:id="@+id/bottomNavigationView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+  />
+<LinearLayout
+    android:translationZ="100dp"
+    android:id="@+id/navigation_bar"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:layout_alignParentBottom="true"
+    android:background="@color/black"
+    android:orientation="horizontal"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+
+    <!-- Chat button -->
+        <ImageButton
+            android:id="@+id/chat_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/cardview_dark_background"
+            android:contentDescription="chat button"
+            android:scaleType="centerInside"
+            android:src="@drawable/chat_icon" />
+
+        <!-- Home button -->
+        <ImageButton
+            android:id="@+id/home_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/cardview_dark_background"
+            android:contentDescription="home button"
+            android:scaleType="centerInside"
+            android:src="@drawable/send_icon" />
+
+        <!-- Login button -->
+        <ImageButton
+            android:id="@+id/login1_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/cardview_dark_background"
+            android:contentDescription="login1 button"
+            android:scaleType="centerInside"
+            android:src="@drawable/send_icon" />
+
+        <!-- Settings button -->
+        <ImageButton
+            android:id="@+id/settings_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/cardview_dark_background"
+            android:contentDescription="settings  button"
+            android:scaleType="centerInside"
+            android:src="@drawable/send_icon" />
+
+    </LinearLayout>
+</RelativeLayout>
+</ScrollView>

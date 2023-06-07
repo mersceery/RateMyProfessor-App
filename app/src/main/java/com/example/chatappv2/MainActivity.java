@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.chatappv2.mainMenu.MainMenu;
 import com.example.chatappv2.messages.MessagesAdapter;
 import com.example.chatappv2.messages.MessagesList;
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), HomescreenActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainMenu.class);
                 startActivity(intent);
                 finish();
             }

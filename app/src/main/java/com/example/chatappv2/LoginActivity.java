@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.chatappv2.mainMenu.MainMenu;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -100,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Toast.makeText(LoginActivity.this, "Login Successful ",
                                             Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(LoginActivity.this, HomescreenActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, MainMenu.class);
                                     intent.putExtra("mobile", mobile);
                                     intent.putExtra("email", email);
                                     startActivity(intent);

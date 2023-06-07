@@ -45,6 +45,7 @@ public class Chat extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        super.onBackPressed();
 
         final ImageView backBtn = findViewById(R.id.backBtn);
         final TextView nameTV = findViewById(R.id.name);
