@@ -29,11 +29,11 @@ public class Utils {
     }
 
     private void initData(){
-        profs.add(new Professor("Prof 1", 4.5, "X Professor in Informatik Fakultat", "https://i.pinimg.com/originals/30/df/1c/30df1cb8981338d42ed2722ab74cb51e.jpg"));
+        profs.add(new Professor("Hechler", 5.0, "Mathe 1 Professor in Informatik Fakultat", "https://static.vecteezy.com/system/resources/thumbnails/009/383/709/small/woman-face-expression-clipart-design-illustration-free-png.png"));
 
-        profs.add(new Professor("Prof 2", 4.0, "Y Professor in Informatik Fakultat", "https://as1.ftcdn.net/v2/jpg/02/51/13/68/1000_F_251136811_2sMnZjYICQ5eLPJqc8axlF1xHqoP3xov.jpg"));
+        profs.add(new Professor("Romana Piat", 5.0, "Mathe 1 Professor in Informatik Fakultat", "https://www.itm.kit.edu/img/PiatNew2(1).jpg"));
 
-        profs.add(new Professor("KEKW", 5.0, "Z Professor in Informatik Fakultat", "https://staticg.sportskeeda.com/editor/2021/04/f7504-16196838481260-800.jpg"));
+        //profs.add(new Professor("KEKW", 5.0, "Z Professor in Informatik Fakultat", "https://staticg.sportskeeda.com/editor/2021/04/f7504-16196838481260-800.jpg"));
 
     }
 
