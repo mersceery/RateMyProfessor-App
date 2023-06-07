@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.example.chatappv2.LoginActivity;
 import com.example.chatappv2.R;
+import com.example.chatappv2.allProfs.AllProfsActivity;
+import com.example.chatappv2.profDetails.ProfDetailsActivity;
 
 import org.w3c.dom.Text;
 
@@ -22,8 +24,16 @@ public class ModulesAdapter extends RecyclerView.Adapter<ModulesAdapter.MyViewHo
     Module module;
     ArrayList<Module> moduleArrayList;
 
-    private TextView moduleName;
 
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
+        TextView moduleName;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            moduleName = itemView.findViewById(R.id.tvModule);
+        }
+    }
 
 
     public ModulesAdapter(Context context, ArrayList<Module> moduleArrayList) {
@@ -43,7 +53,13 @@ public class ModulesAdapter extends RecyclerView.Adapter<ModulesAdapter.MyViewHo
     public void onBindViewHolder(@NonNull ModulesAdapter.MyViewHolder holder, int position) {
         Module module1 = moduleArrayList.get(position);
         holder.moduleName.setText(module1.ModuleName);
-
+        holder.moduleName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, AllProfsActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
 
@@ -52,13 +68,6 @@ public class ModulesAdapter extends RecyclerView.Adapter<ModulesAdapter.MyViewHo
         return moduleArrayList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView moduleName;
 
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            moduleName = itemView.findViewById(R.id.tvModule);
-        }
-    }
 
 }

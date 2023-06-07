@@ -2,6 +2,7 @@ package com.example.chatappv2.allProfs;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.chatappv2.R;
+import com.example.chatappv2.fragebogen.PostAdapter;
+import com.example.chatappv2.profDetails.ProfDetailsActivity;
+import com.example.chatappv2.professorDetails.PostDetailActivity;
 
 import java.util.ArrayList;
 
@@ -53,6 +57,13 @@ public class ProfRecViewAdapter extends RecyclerView.Adapter<ProfRecViewAdapter.
         holder.txtProfShortDesc.setText(profs.get(position).getShortDesc());
         holder.ratingBarProf.setRating((float)profs.get(position).getRating());
 
+        holder.imgProf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ProfDetailsActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 
