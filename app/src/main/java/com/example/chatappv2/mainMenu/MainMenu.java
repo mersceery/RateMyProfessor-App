@@ -2,82 +2,104 @@ package com.example.chatappv2.mainMenu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
+import com.example.chatappv2.EditProfile;
+import com.example.chatappv2.LoginActivity;
+import com.example.chatappv2.MainActivity;
 import com.example.chatappv2.R;
+import com.example.chatappv2.chat.Chat;
+import com.example.chatappv2.fragebogen.FrageBogenActivity;
 
 public class MainMenu extends AppCompatActivity {
 
-    private ImageButton loginButton;
+    private ImageView editProfileImg;
     private Button viewAllButton;
-    private ImageButton rateProfessorButton;
-    private ImageButton chatButton;
-    private ImageButton homeButton;
-    private ImageButton login1Button;
-    private ImageButton settingsButton;
+    private ImageView rateProfessorButton;
+    private ImageView chatButton;
+    private ImageView homeButton;
+    private ImageView login1Button;
+    private ImageView editProfileButton2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_menu);
         // Find views by their IDs
-        loginButton = findViewById(R.id.login_button);
+        editProfileImg = (ImageView) findViewById(R.id.editProfile_button2);
         viewAllButton = findViewById(R.id.view_all_button);
         rateProfessorButton = findViewById(R.id.rate_professor_button);
         chatButton = findViewById(R.id.chat_button);
         homeButton = findViewById(R.id.home_button);
         login1Button = findViewById(R.id.login1_button);
-        settingsButton = findViewById(R.id.settings_button);
+        editProfileButton2 = findViewById(R.id.editProfileImg);
 
         // Set click listeners for the buttons
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        editProfileImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Perform login button functionality
+                Intent intent = new Intent(getApplicationContext(), EditProfile.class);
+                startActivity(intent);
+                finish(); // close the loginActivity properly
             }
         });
 
         viewAllButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Perform view all button functionality
+                Intent intent = new Intent(getApplicationContext(), MainMenu.class);
+                startActivity(intent);
+                finish(); // close the loginActivity properly
             }
         });
 
         rateProfessorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Perform rate professor button functionality
+                Intent intent = new Intent(getApplicationContext(), FrageBogenActivity.class);
+                startActivity(intent);
+                finish(); // close the loginActivity properly
             }
         });
 
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Perform chat button functionality
+                Intent intent = new Intent(getApplicationContext(), Chat.class);
+                startActivity(intent);
+                finish(); // close the loginActivity properly
             }
         });
 
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Perform home button functionality
+                Intent intent = new Intent(getApplicationContext(), MainMenu.class);
+                startActivity(intent);
+                finish(); // close the loginActivity properly
             }
         });
 
         login1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Perform login1 button functionality
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish(); // close the loginActivity properly
             }
         });
 
-        settingsButton.setOnClickListener(new View.OnClickListener() {
+        editProfileButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Perform settings button functionality
+                Intent intent = new Intent(getApplicationContext(), EditProfile.class);
+                startActivity(intent);
+                finish(); // close the loginActivity properly
             }
         });
     }
