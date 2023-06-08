@@ -148,7 +148,7 @@ public class FrageBogenActivity extends AppCompatActivity {
             db = FirebaseDatabase.getInstance().getReferenceFromUrl("https://chatappv2-cbaed-default-rtdb.firebaseio.com/");
             commentArrayList = new ArrayList<Comment>();
             postAdapter = new PostAdapter(FrageBogenActivity.this, commentArrayList);
-            recyclerView.setAdapter(postAdapter);
+
 
 
             db.addValueEventListener(new ValueEventListener() {
@@ -172,21 +172,21 @@ public class FrageBogenActivity extends AppCompatActivity {
             });
 
             //add comment
-            addCommentBtn.setOnClickListener(new View.OnClickListener() {
+            addRatingBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     DatabaseReference commentReference = db.child("Comments").push();
-                    addCommentBtn.setVisibility(View.INVISIBLE);
-                    String commentContent = editTextComment.getText().toString();
-                    String uName = user.getDisplayName();
+                    addRatingBtn.setVisibility(View.INVISIBLE);
+                    String commentContent = addCommentEditTxt.getText().toString();
+                    String uName = "test";
                     Comment comment = new Comment(uName, commentContent);
 
                     commentReference.setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
                             Toast.makeText(FrageBogenActivity.this, "Comment added",Toast.LENGTH_LONG).show();
-                            editTextComment.setText("");
-                            addCommentBtn.setVisibility(View.VISIBLE);
+                            addCommentEditTxt.setText("");
+                            addRatingBtn.setVisibility(View.VISIBLE);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override

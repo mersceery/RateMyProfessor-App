@@ -98,7 +98,6 @@ public class ProfRecViewAdapter extends RecyclerView.Adapter<ProfRecViewAdapter.
             //add comment
             imgUserAddComment = itemView.findViewById(R.id.postCommendPicture);
             editTxtAddComment = itemView.findViewById(R.id.typeComment);
-            btnAddComment = itemView.findViewById(R.id.btnAddComment);
 
 
         }
