@@ -29,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 public class Register extends AppCompatActivity {
     FirebaseAuth mAuth;
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("Your FirebaseDB here");
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://chatappv2-cbaed-default-rtdb.firebaseio.com/");
 
     @Override
     public void onStart() {

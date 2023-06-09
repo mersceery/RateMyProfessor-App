@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean dataSet = false;
     private RecyclerView messagesRecyclerView;
     private MessagesAdapter messagesAdapter;
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("Your FirebaseDB here");
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://chatappv2-cbaed-default-rtdb.firebaseio.com/");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

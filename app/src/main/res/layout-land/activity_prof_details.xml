@@ -51,7 +51,7 @@
 
         <!-- Settings button -->
         <ImageView
-            android:id="@+id/editProfile_button2"
+            android:id="@+id/settings_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
