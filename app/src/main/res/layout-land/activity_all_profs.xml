@@ -58,5 +58,61 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="71dp" />
+    <LinearLayout
+        android:translationZ="100dp"
+        android:id="@+id/navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/black"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Chat button -->
+        <ImageButton
+            android:id="@+id/chat_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/cardview_dark_background"
+            android:contentDescription="chat button"
+            android:scaleType="centerInside"
+            android:src="@drawable/chat_icon" />
+
+        <!-- Home button -->
+        <ImageButton
+            android:id="@+id/home_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/cardview_dark_background"
+            android:contentDescription="home button"
+            android:scaleType="centerInside"
+            android:src="@drawable/home_btn" />
+
+        <!-- Login button -->
+        <ImageButton
+            android:id="@+id/login1_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/cardview_dark_background"
+            android:contentDescription="login1 button"
+            android:scaleType="centerInside"
+            android:src="@drawable/login_btn" />
+
+        <!-- Settings button -->
+        <ImageButton
+            android:id="@+id/settings_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/cardview_dark_background"
+            android:contentDescription="settings  button"
+            android:scaleType="centerInside"
+            android:src="@drawable/setting_btn" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
