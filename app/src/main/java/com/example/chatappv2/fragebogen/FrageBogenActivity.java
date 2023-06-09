@@ -15,7 +15,11 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.chatappv2.EditProfile;
+import com.example.chatappv2.LoginActivity;
+import com.example.chatappv2.MainActivity;
 import com.example.chatappv2.R;
+import com.example.chatappv2.mainMenu.MainMenu;
 import com.example.chatappv2.modules.ModulesActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -57,6 +61,11 @@ public class FrageBogenActivity extends AppCompatActivity {
     private RatingBar klausurRating;
     private RatingBar vorlesungRating;
     private RatingBar praktikumRating;
+    private ImageView chatButton;
+    private ImageView homeButton;
+    private ImageView login1Button;
+
+    private ImageView editProfileButton2;
 
     private EditText addCommentEditTxt;
     private Button addRatingBtn;
@@ -89,8 +98,47 @@ public class FrageBogenActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         moduleSpinner.setAdapter(adapter);
+        chatButton = findViewById(R.id.chat_button);
+        homeButton = findViewById(R.id.home_button);
+        login1Button = findViewById(R.id.login1_button);
+        editProfileButton2 = findViewById(R.id.settings_button);
+        //start navBar
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish(); // close the loginActivity properly
+            }
+        });
 
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainMenu.class);
+                startActivity(intent);
+                finish(); // close the loginActivity properly
+            }
+        });
 
+        login1Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish(); // close the loginActivity properly
+            }
+        });
+        editProfileButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), EditProfile.class);
+                startActivity(intent);
+                finish(); // close the loginActivity properly
+            }
+        });
+
+        //end navBar
 
         profSpinner = findViewById(R.id.professorSpinner);
 
@@ -142,61 +190,61 @@ public class FrageBogenActivity extends AppCompatActivity {
         });
 
 
-            auth = FirebaseAuth.getInstance();
-            user = FirebaseAuth.getInstance().getCurrentUser();
+        auth = FirebaseAuth.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
-            db = FirebaseDatabase.getInstance().getReferenceFromUrl("https://chatappv2-cbaed-default-rtdb.firebaseio.com/");
-            commentArrayList = new ArrayList<Comment>();
-            postAdapter = new PostAdapter(FrageBogenActivity.this, commentArrayList);
-
-
-
-            db.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    commentArrayList.clear();
-                    for(DataSnapshot dataSnapshot : snapshot.child("Comments").getChildren()){
-                        Comment newComment = dataSnapshot.getValue(Comment.class);
-                        commentArrayList.add(newComment);
+        db = FirebaseDatabase.getInstance().getReferenceFromUrl("https://chatappv2-cbaed-default-rtdb.firebaseio.com/");
+        commentArrayList = new ArrayList<Comment>();
+        postAdapter = new PostAdapter(FrageBogenActivity.this, commentArrayList);
 
 
+
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                commentArrayList.clear();
+                for(DataSnapshot dataSnapshot : snapshot.child("Comments").getChildren()){
+                    Comment newComment = dataSnapshot.getValue(Comment.class);
+                    commentArrayList.add(newComment);
+
+
+                }
+
+                postAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        //add comment
+        addRatingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference commentReference = db.child("Comments").push();
+                addRatingBtn.setVisibility(View.INVISIBLE);
+                String commentContent = addCommentEditTxt.getText().toString();
+                String uName = "test";
+                Comment comment = new Comment(uName, commentContent);
+
+                commentReference.setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(FrageBogenActivity.this, "Comment added",Toast.LENGTH_LONG).show();
+                        addCommentEditTxt.setText("");
+                        addRatingBtn.setVisibility(View.VISIBLE);
                     }
-
-                    postAdapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-            //add comment
-            addRatingBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    DatabaseReference commentReference = db.child("Comments").push();
-                    addRatingBtn.setVisibility(View.INVISIBLE);
-                    String commentContent = addCommentEditTxt.getText().toString();
-                    String uName = "test";
-                    Comment comment = new Comment(uName, commentContent);
-
-                    commentReference.setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            Toast.makeText(FrageBogenActivity.this, "Comment added",Toast.LENGTH_LONG).show();
-                            addCommentEditTxt.setText("");
-                            addRatingBtn.setVisibility(View.VISIBLE);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(FrageBogenActivity.this, "Comment fail to be added"+e.getMessage(),Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
-            });
-        }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(FrageBogenActivity.this, "Comment fail to be added"+e.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+    }
 
 
 
