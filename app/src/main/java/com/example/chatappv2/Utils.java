@@ -4,6 +4,7 @@ package com.example.chatappv2;
 import android.content.Context;
 
 import com.example.chatappv2.allProfs.Professor;
+import com.example.chatappv2.listEmails.User;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,11 @@ public class Utils {
 
     private static Utils instance;
     private ArrayList<Professor> profs = new ArrayList<>();
+    private ArrayList<User> users = new ArrayList<>();
 
+    public ArrayList<User> getUsers() {
+        return users;
+    }
 
     public Utils(Context context) {
         initData();

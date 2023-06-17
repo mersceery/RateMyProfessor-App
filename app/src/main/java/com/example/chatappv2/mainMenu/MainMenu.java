@@ -6,15 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.chatappv2.EditProfile;
 import com.example.chatappv2.LoginActivity;
-import com.example.chatappv2.MainActivity;
 import com.example.chatappv2.R;
-import com.example.chatappv2.chat.Chat;
 import com.example.chatappv2.fragebogen.FrageBogenActivity;
+import com.example.chatappv2.listEmails.userlist;
 import com.example.chatappv2.modules.ModulesActivity;
 
 public class MainMenu extends AppCompatActivity {
@@ -71,7 +69,7 @@ public class MainMenu extends AppCompatActivity {
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), userlist.class);
                 startActivity(intent);
                 finish(); // close the loginActivity properly
             }
