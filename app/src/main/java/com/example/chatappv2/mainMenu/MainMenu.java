@@ -1,5 +1,6 @@
 package com.example.chatappv2.mainMenu;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.chatappv2.EditProfile;
 import com.example.chatappv2.LoginActivity;
@@ -16,6 +18,18 @@ import com.example.chatappv2.R;
 import com.example.chatappv2.chat.Chat;
 import com.example.chatappv2.fragebogen.FrageBogenActivity;
 import com.example.chatappv2.modules.ModulesActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -26,6 +40,14 @@ public class MainMenu extends AppCompatActivity {
     private ImageView homeButton;
     private ImageView login1Button;
     private ImageView editProfileButton2;
+
+    private ImageView professor1;
+    private ImageView professor2;
+    private ImageView professor3;
+
+    private TextView professor1txt;
+    private TextView professor2txt;
+    private TextView professor3txt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +61,14 @@ public class MainMenu extends AppCompatActivity {
         homeButton = findViewById(R.id.home_button);
         login1Button = findViewById(R.id.login1_button);
         editProfileButton2 = findViewById(R.id.editProfileImg);
+        professor1 = findViewById(R.id.professor1);
+        professor2 = findViewById(R.id.professor2);
+        professor3 = findViewById(R.id.professor3);
+
+        professor1txt = findViewById(R.id.professor1name);
+        professor2txt = findViewById(R.id.professor2name);
+        professor3txt = findViewById(R.id.professor3name);
+
 
         // Set click listeners for the buttons
         editProfileImg.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +131,82 @@ public class MainMenu extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), EditProfile.class);
                 startActivity(intent);
                 finish(); // close the loginActivity properly
+            }
+        });
+        retrieveAndProcessTopRatings();
+    }
+    private void retrieveAndProcessTopRatings() {
+        DatabaseReference ratingsRef = FirebaseDatabase.getInstance().getReference().child("Ratings");
+
+        ratingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Map<String, Float> professorRatings = new HashMap<>();
+
+                // Iterate through all modules
+                for (DataSnapshot moduleSnapshot : dataSnapshot.getChildren()) {
+                    String module = moduleSnapshot.getKey();
+
+                    // Iterate through all professors within the module
+                    for (DataSnapshot professorSnapshot : moduleSnapshot.getChildren()) {
+                        String professor = professorSnapshot.getKey();
+                        float totalRating = 0;
+                        int ratingCount = 0;
+
+                        // Iterate through all ratings for the professor
+                        for (DataSnapshot ratingSnapshot : professorSnapshot.getChildren()) {
+                            String ratingId = ratingSnapshot.getKey();
+
+                            // Retrieve the rating values
+                            float klausurRating = ratingSnapshot.child("Ratings").child("Klausur").getValue(Float.class);
+                            float vorlesungRating = ratingSnapshot.child("Ratings").child("Vorlesung").getValue(Float.class);
+                            float praktikumRating = ratingSnapshot.child("Ratings").child("Praktikum").getValue(Float.class);
+
+                            // Calculate the average rating for the professor
+                            float averageRating = (klausurRating + vorlesungRating + praktikumRating) / 3;
+
+                            // Accumulate the total rating and count
+                            totalRating += averageRating;
+                            ratingCount++;
+                        }
+
+                        // Calculate the average rating for the professor
+                        float professorAverageRating = totalRating / ratingCount;
+
+                        // Update the professor's rating in the map
+                        professorRatings.put(professor, professorAverageRating);
+                    }
+                }
+
+                // Sort the professors based on their average ratings
+                List<Map.Entry<String, Float>> sortedProfessorRatings = new ArrayList<>(professorRatings.entrySet());
+                Collections.sort(sortedProfessorRatings, new Comparator<Map.Entry<String, Float>>() {
+                    @Override
+                    public int compare(Map.Entry<String, Float> entry1, Map.Entry<String, Float> entry2) {
+                        // Sort in descending order
+                        return Float.compare(entry2.getValue(), entry1.getValue());
+                    }
+                });
+
+                // Get the top 3 professors with the highest ratings
+                List<Map.Entry<String, Float>> top3Professors = sortedProfessorRatings.subList(0, Math.min(3, sortedProfessorRatings.size()));
+
+                // Update the professor1txt, professor2txt, and professor3txt
+                if (top3Professors.size() >= 1) {
+                    professor1txt.setText(top3Professors.get(0).getKey());
+                }
+
+                if (top3Professors.size() >= 2) {
+                    professor2txt.setText(top3Professors.get(1).getKey());
+                }
+
+                if (top3Professors.size() >= 3) {
+                    professor3txt.setText(top3Professors.get(2).getKey());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle any errors
             }
         });
     }

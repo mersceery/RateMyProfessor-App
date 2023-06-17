@@ -61,11 +61,13 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/professor2"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/andre_tate" />
 
                 <TextView
+                    android:id="@+id/professor2name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Professor 2" />
@@ -82,11 +84,13 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/professorq"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:src="@drawable/andre_tate" />
 
                 <TextView
+                    android:id="@+id/professor1name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Professor 1" />
@@ -104,11 +108,13 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/professor3"
                     android:layout_width="100dp"
                     android:layout_height="120dp"
                     android:src="@drawable/andre_tate" />
 
                 <TextView
+                    android:id="@+id/professor3name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Professor 3" />
