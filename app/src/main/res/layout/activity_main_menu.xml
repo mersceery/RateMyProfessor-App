@@ -163,6 +163,7 @@
                     <!-- Add the content for Module 1 here -->
 
                     <ImageView
+                        android:id="@+id/module1"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:src="@drawable/un10" />
@@ -170,7 +171,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Module 1" />
+                        android:text="AUD" />
 
                 </LinearLayout>
 
@@ -184,6 +185,7 @@
 
                     <!-- Add the content for Module 2 here -->
                     <ImageView
+                        android:id="@+id/module2"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:src="@drawable/un10" />
@@ -191,7 +193,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Module 2" />
+                        android:text="ITS" />
 
                 </LinearLayout>
 
@@ -205,6 +207,7 @@
 
                     <!-- Add the content for Module 3 here -->
                     <ImageView
+                        android:id="@+id/module3"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:src="@drawable/un10" />
@@ -212,7 +215,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Module 3" />
+                        android:text="Mathe 1" />
 
                 </LinearLayout>
 
@@ -227,6 +230,7 @@
                     <!-- Add the content for Module 4 here -->
 
                     <ImageView
+                        android:id="@+id/module4"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:src="@drawable/un10" />
@@ -234,7 +238,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Module 3" />
+                        android:text="PG1" />
 
                 </LinearLayout>
 
@@ -248,6 +252,7 @@
 
                     <!-- Add the content for Module 5 here -->
                     <ImageView
+                        android:id="@+id/module5"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:src="@drawable/un10" />
@@ -255,7 +260,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Module 3" />
+                        android:text="TGI" />
 
                 </LinearLayout>
 

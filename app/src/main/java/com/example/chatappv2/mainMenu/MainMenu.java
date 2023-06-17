@@ -15,8 +15,10 @@ import com.example.chatappv2.EditProfile;
 import com.example.chatappv2.LoginActivity;
 import com.example.chatappv2.MainActivity;
 import com.example.chatappv2.R;
+import com.example.chatappv2.allProfs.AllProfsActivity;
 import com.example.chatappv2.chat.Chat;
 import com.example.chatappv2.fragebogen.FrageBogenActivity;
+import com.example.chatappv2.modules.Module;
 import com.example.chatappv2.modules.ModulesActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,6 +51,13 @@ public class MainMenu extends AppCompatActivity {
     private TextView professor2txt;
     private TextView professor3txt;
 
+    private ImageView modul1;
+    private ImageView modul2;
+    private ImageView modul3;
+    private ImageView modul4;
+    private ImageView modul5;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,8 +78,55 @@ public class MainMenu extends AppCompatActivity {
         professor2txt = findViewById(R.id.professor2name);
         professor3txt = findViewById(R.id.professor3name);
 
+        modul1 = findViewById(R.id.module1);
+        modul2 = findViewById(R.id.module2);
+        modul3 = findViewById(R.id.module3);
+        modul4 = findViewById(R.id.module4);
+        modul5 = findViewById(R.id.module5);
+
 
         // Set click listeners for the buttons
+        modul1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainMenu.this, AllProfsActivity.class);
+                intent.putExtra("modulePosition", 0);
+                MainMenu.this.startActivity(intent);
+            }
+        });
+        modul2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainMenu.this, AllProfsActivity.class);
+                intent.putExtra("modulePosition", 3);
+                MainMenu.this.startActivity(intent);
+            }
+        });
+
+        modul3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainMenu.this, AllProfsActivity.class);
+                intent.putExtra("modulePosition", 2);
+                MainMenu.this.startActivity(intent);
+            }
+        });
+        modul4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainMenu.this, AllProfsActivity.class);
+                intent.putExtra("modulePosition", 4);
+                MainMenu.this.startActivity(intent);
+            }
+        });
+        modul5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainMenu.this, AllProfsActivity.class);
+                intent.putExtra("modulePosition", 1);
+                MainMenu.this.startActivity(intent);
+            }
+        });
         editProfileImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -209,5 +265,6 @@ public class MainMenu extends AppCompatActivity {
                 // Handle any errors
             }
         });
+
     }
 }
