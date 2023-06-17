@@ -12,9 +12,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.chatappv2.mainMenu.MainMenu;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -31,6 +34,10 @@ public class Register extends AppCompatActivity {
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://chatappv2-cbaed-default-rtdb.firebaseio.com/");
 
+    RadioGroup radioGroup;
+    RadioButton radioButton;
+
+    String radioText;
     @Override
     public void onStart() {
         super.onStart();
@@ -54,8 +61,22 @@ public class Register extends AppCompatActivity {
         final EditText password = findViewById(R.id.r_password);
         final AppCompatButton registerBtn = findViewById(R.id.r_registerBtn);
 
+
         final ProgressBar progressBar = findViewById(R.id.progressBar);
         final TextView loginNow = findViewById(R.id.loginNow);
+
+        radioGroup = findViewById(R.id.radioGroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int id=group.getCheckedRadioButtonId();
+                RadioButton rb=(RadioButton) findViewById(id);
+
+                radioText = rb.getText().toString();
+
+            }
+        });
 
         loginNow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +154,11 @@ public class Register extends AppCompatActivity {
                                 databaseReference.child("users").child(mobileTxt).child("email").setValue(emailTxt);
                                 databaseReference.child("users").child(mobileTxt).child("name").setValue(nameTxt);
                                 databaseReference.child("users").child(mobileTxt).child("profile_pic").setValue("");
+                                databaseReference.child("users").child(mobileTxt).child("role").setValue(radioText);
+
+                                databaseReference.child("Users").child(mobileTxt).child("email").setValue(emailTxt);
+                                databaseReference.child("Users").child(mobileTxt).child("name").setValue(nameTxt);
+                                databaseReference.child("Users").child(mobileTxt).child("role").setValue(radioText);
 
                                 //save mobile to memory
                                 MemoryData.saveData(mobileTxt, Register.this);
@@ -142,7 +168,7 @@ public class Register extends AppCompatActivity {
 
                                 Toast.makeText(Register.this, "Success", Toast.LENGTH_SHORT).show();
 
-                                Intent intent = new Intent(Register.this, MainActivity.class);
+                                Intent intent = new Intent(Register.this, MainMenu.class);
                                 intent.putExtra("mobile", mobileTxt);
                                 intent.putExtra("name", nameTxt);
                                 intent.putExtra("email", emailTxt);

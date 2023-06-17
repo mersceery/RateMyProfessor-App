@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageView
+    android:layout_marginBottom="20dp"
+        android:id="@+id/backBtn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/round_back_light_10"
+        android:paddingStart="12sp"
+        android:paddingEnd="2dp"
+        android:src="@drawable/back_btn"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/searchView"
+        app:layout_constraintStart_toEndOf="@+id/searchView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="To:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <EditText
+        android:hint="Send To..."
+        android:id="@+id/edit_text_to"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:inputType="textEmailAddress" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Subject:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <EditText
+        android:hint="Subject..."
+        android:id="@+id/edit_text_subject"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:inputType="textEmailSubject" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Message:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <EditText
+        android:hint="Messages..."
+        android:id="@+id/edit_text_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|top"
+        android:lines="10" />
+
+    <Button
+        android:id="@+id/button_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="send" />
+    <LinearLayout
+        android:layout_marginTop="220dp"
+        android:id="@+id/navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Chat button -->
+        <ImageButton
+            android:id="@+id/chat_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/cardview_dark_background"
+            android:contentDescription="chat button"
+            android:scaleType="centerInside"
+            android:src="@drawable/chat_icon" />
+
+        <!-- Home button -->
+        <ImageButton
+            android:id="@+id/home_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/cardview_dark_background"
+            android:contentDescription="home button"
+            android:scaleType="centerInside"
+            android:src="@drawable/home_btn" />
+
+        <!-- Login button -->
+        <ImageButton
+            android:id="@+id/login1_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/cardview_dark_background"
+            android:contentDescription="login1 button"
+            android:scaleType="centerInside"
+            android:src="@drawable/login_btn" />
+
+        <!-- Settings button -->
+        <ImageButton
+            android:id="@+id/settings_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/cardview_dark_background"
+            android:contentDescription="settings  button"
+            android:scaleType="centerInside"
+            android:src="@drawable/setting_btn" />
+
+    </LinearLayout>
+</LinearLayout>
