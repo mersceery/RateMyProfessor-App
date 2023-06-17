@@ -47,10 +47,10 @@ public class ModulesActivity extends AppCompatActivity {
         moduleArrayList = new ArrayList<Module>();
         modulesAdapter = new ModulesAdapter(ModulesActivity.this, moduleArrayList);
         Module module1 = new Module("Aud");
-        Module module2 = new Module("TGI");
+        Module module5 = new Module("TGI");
         Module module3 = new Module("Mathe 1");
         Module module4 = new Module("PG 1");
-        Module module5 = new Module("ITS");
+        Module module2 = new Module("ITS");
         moduleArrayList.add(module1);
         moduleArrayList.add(module2);
         moduleArrayList.add(module3);

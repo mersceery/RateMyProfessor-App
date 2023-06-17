@@ -24,6 +24,8 @@ public class Utils {
     private ArrayList<Professor> profsMathe = new ArrayList<>();
     private ArrayList<Professor> profsTGI = new ArrayList<>();
     private ArrayList<Professor> profsAuD = new ArrayList<>();
+    private ArrayList<Professor> pg1 = new ArrayList<>();
+    private ArrayList<Professor> its = new ArrayList<>();
     public Utils(){
         initData();
     }
@@ -54,9 +56,13 @@ public class Utils {
             case 0:
                 return profsAuD;
             case 1:
-                return profsTGI;
+                return its;
             case 2:
                 return profsMathe;
+            case 3:
+                return pg1;
+            case 4:
+                return profsTGI;
             default:
                 return null;
         }

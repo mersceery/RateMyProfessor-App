@@ -98,7 +98,7 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainMenu.this, AllProfsActivity.class);
-                intent.putExtra("modulePosition", 3);
+                intent.putExtra("modulePosition", 1);
                 MainMenu.this.startActivity(intent);
             }
         });
@@ -115,7 +115,7 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainMenu.this, AllProfsActivity.class);
-                intent.putExtra("modulePosition", 4);
+                intent.putExtra("modulePosition", 3);
                 MainMenu.this.startActivity(intent);
             }
         });
@@ -123,7 +123,7 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainMenu.this, AllProfsActivity.class);
-                intent.putExtra("modulePosition", 1);
+                intent.putExtra("modulePosition", 4);
                 MainMenu.this.startActivity(intent);
             }
         });
