@@ -6,11 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.chatappv2.mainMenu.MainMenu;
 
 public class EditProfile extends AppCompatActivity {
+
+    private EditText editTextEmail;
+    private EditText editTextName;
     private ImageView chatButton;
     private ImageView homeButton;
     private ImageView login1Button;
@@ -19,6 +23,7 @@ public class EditProfile extends AppCompatActivity {
     private ImageView bckButton;
 
     private Button logoutBtn;
+    private Button saveChangesBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +34,16 @@ public class EditProfile extends AppCompatActivity {
         login1Button = findViewById(R.id.login1_button);
         editProfileButton2 = findViewById(R.id.settings_button);
         bckButton = findViewById(R.id.backBtn);
+        editTextEmail = findViewById(R.id.EditEmailEditTxt);
+        editTextName = findViewById(R.id.editNameEditTxt);
+        saveChangesBtn = findViewById(R.id.saveChangesBtn);
+
+        saveChangesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         bckButton.setOnClickListener(new View.OnClickListener() {
             @Override
