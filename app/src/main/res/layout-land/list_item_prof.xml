@@ -11,21 +11,10 @@
         android:id="@+id/imageViewProf"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/ratingBarProf"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="143dp"
         tools:srcCompat="@tools:sample/avatars" />
-
-    <RatingBar
-        android:id="@+id/ratingBarProf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:isIndicator="true"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/txtProfName"

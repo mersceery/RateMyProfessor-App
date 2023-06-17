@@ -275,6 +275,7 @@
             android:layout_below="@+id/modules_scrollview"
             android:layout_marginTop="16dp"/>
 
+
         <ImageView
 
             android:id="@+id/rate_professor_button"
@@ -282,7 +283,7 @@
             android:layout_height="150dp"
             android:layout_below="@+id/podium_layout"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="19dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:background="#2A383F"
@@ -292,7 +293,6 @@
             android:src="@drawable/rate_my_prof_icon"
             android:text="Rate my Professors"
             android:textSize="16sp" />
-
 
         <LinearLayout
             android:id="@+id/navigation_bar"

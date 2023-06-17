@@ -21,8 +21,15 @@ import java.util.ArrayList;
 
 public class ModulesAdapter extends RecyclerView.Adapter<ModulesAdapter.MyViewHolder> {
     Context context;
-    Module module;
     ArrayList<Module> moduleArrayList;
+    private int moduleNumber;
+    public int getModuleNumber() {
+        return moduleNumber;
+    }
+
+    public void setModuleNumber(int moduleNumber) {
+        this.moduleNumber = moduleNumber;
+    }
 
 
 
@@ -56,8 +63,12 @@ public class ModulesAdapter extends RecyclerView.Adapter<ModulesAdapter.MyViewHo
         holder.moduleName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int modulePosition = holder.getAdapterPosition();
+                setModuleNumber(modulePosition);
                 Intent intent = new Intent(context, AllProfsActivity.class);
+                intent.putExtra("modulePosition", modulePosition);
                 context.startActivity(intent);
+
             }
         });
     }

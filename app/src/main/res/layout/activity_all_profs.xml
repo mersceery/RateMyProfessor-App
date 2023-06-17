@@ -1,33 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollView"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true" >
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".allProfs.AllProfsActivity">
+    tools:context=".allProfs.AllProfsActivity">
 
 
-        <ImageView
+    <ImageView
 
-            android:id="@+id/backBtn"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/round_back_light_10"
-            android:paddingStart="12sp"
-            android:paddingEnd="2dp"
-            android:src="@drawable/back_btn"
-            app:layout_constraintBottom_toTopOf="@+id/guideline4"
-            app:layout_constraintEnd_toStartOf="@+id/searchView"
-            app:layout_constraintStart_toEndOf="@+id/searchView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/backBtn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/round_back_light_10"
+        android:paddingStart="12sp"
+        android:paddingEnd="2dp"
+        android:src="@drawable/back_btn"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/searchView"
+        app:layout_constraintStart_toEndOf="@+id/searchView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline4">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/profsRecView"
@@ -36,83 +38,82 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline4" />
+    </ScrollView>
 
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/search_view_bg"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search Here..."
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.72"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <SearchView
-            android:id="@+id/searchView"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/search_view_bg"
-            android:iconifiedByDefault="false"
-            android:queryHint="Search Here..."
-            app:layout_constraintBottom_toTopOf="@+id/guideline4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.72"
-            app:layout_constraintStart_toStartOf="parent" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="71dp" />
+    <LinearLayout
+        android:translationZ="100dp"
+        android:id="@+id/navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/black"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="71dp" />
-        <LinearLayout
-            android:translationZ="100dp"
-            android:id="@+id/navigation_bar"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/black"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+        <!-- Chat button -->
+        <ImageButton
+            android:id="@+id/chat_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/cardview_dark_background"
+            android:contentDescription="chat button"
+            android:scaleType="centerInside"
+            android:src="@drawable/chat_icon" />
 
-            <!-- Chat button -->
-            <ImageButton
-                android:id="@+id/chat_button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/cardview_dark_background"
-                android:contentDescription="chat button"
-                android:scaleType="centerInside"
-                android:src="@drawable/chat_icon" />
+        <!-- Home button -->
+        <ImageButton
+            android:id="@+id/home_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/cardview_dark_background"
+            android:contentDescription="home button"
+            android:scaleType="centerInside"
+            android:src="@drawable/home_btn" />
 
-            <!-- Home button -->
-            <ImageButton
-                android:id="@+id/home_button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/cardview_dark_background"
-                android:contentDescription="home button"
-                android:scaleType="centerInside"
-                android:src="@drawable/home_btn" />
+        <!-- Login button -->
+        <ImageButton
+            android:id="@+id/login1_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/cardview_dark_background"
+            android:contentDescription="login1 button"
+            android:scaleType="centerInside"
+            android:src="@drawable/login_btn" />
 
-            <!-- Login button -->
-            <ImageButton
-                android:id="@+id/login1_button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/cardview_dark_background"
-                android:contentDescription="login1 button"
-                android:scaleType="centerInside"
-                android:src="@drawable/login_btn" />
+        <!-- Settings button -->
+        <ImageButton
+            android:id="@+id/settings_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/cardview_dark_background"
+            android:contentDescription="settings  button"
+            android:scaleType="centerInside"
+            android:src="@drawable/setting_btn" />
 
-            <!-- Settings button -->
-            <ImageButton
-                android:id="@+id/settings_button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/cardview_dark_background"
-                android:contentDescription="settings  button"
-                android:scaleType="centerInside"
-                android:src="@drawable/setting_btn" />
-
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

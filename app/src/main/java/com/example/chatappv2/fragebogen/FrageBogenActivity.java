@@ -65,6 +65,10 @@ public class FrageBogenActivity extends AppCompatActivity {
     private ImageView homeButton;
     private ImageView login1Button;
 
+    private float klausurRatingValue;
+    private float vorlesungRatingValue;
+    private float praktikumRatingValue;
+
     private ImageView editProfileButton2;
 
     private EditText addCommentEditTxt;
@@ -74,8 +78,6 @@ public class FrageBogenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frage_bogen);
-
-
 
         selectModuleTxt = findViewById(R.id.selectModuleTextView);
         selectProfTxt = findViewById(R.id.selectProfessorTextView);
@@ -87,6 +89,9 @@ public class FrageBogenActivity extends AppCompatActivity {
         klausurRating = findViewById(R.id.klausurRatingBar);
         vorlesungRating = findViewById(R.id.vorlesungRatingBar);
         praktikumRating = findViewById(R.id.praktikumRatingBar);
+        klausurRating.setIsIndicator(false);
+        vorlesungRating.setIsIndicator(false);
+        praktikumRating.setIsIndicator(false);
 
         addCommentEditTxt = findViewById(R.id.commentEditText);
         addRatingBtn = findViewById(R.id.addRatingButton);
@@ -140,6 +145,7 @@ public class FrageBogenActivity extends AppCompatActivity {
 
         //end navBar
 
+
         profSpinner = findViewById(R.id.professorSpinner);
 
         String[] itemsProfPG1 = new String[]{"Skorch", "Muller", "Jung", "Budi", "Roth"};
@@ -147,7 +153,6 @@ public class FrageBogenActivity extends AppCompatActivity {
         String[] itemsProfTGI = new String[]{"THE", "GOAT", "MAIER"};
         String[] itemsProfMATHE1 = new String[]{"Hechler", "Piat"};
         String[] itemsProfITS = new String[]{"Rathgeb", "Heinemann", "Templar Assasin", "Invoker", "Meepo"};
-
 
         moduleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -159,22 +164,18 @@ public class FrageBogenActivity extends AppCompatActivity {
                         break;
                     }
                     case "AuD": {
-
                         professorSelector(itemsProfAuD);
                         break;
                     }
                     case "TGI": {
-
                         professorSelector(itemsProfTGI);
                         break;
                     }
                     case "MATHE1": {
-
                         professorSelector(itemsProfMATHE1);
                         break;
                     }
                     case "ITS": {
-
                         professorSelector(itemsProfITS);
                         break;
                     }
@@ -189,65 +190,21 @@ public class FrageBogenActivity extends AppCompatActivity {
             }
         });
 
-
-        auth = FirebaseAuth.getInstance();
-        user = FirebaseAuth.getInstance().getCurrentUser();
-
-        db = FirebaseDatabase.getInstance().getReferenceFromUrl("https://chatappv2-cbaed-default-rtdb.firebaseio.com/");
-        commentArrayList = new ArrayList<Comment>();
-        postAdapter = new PostAdapter(FrageBogenActivity.this, commentArrayList);
-
-
-
-        db.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                commentArrayList.clear();
-                for(DataSnapshot dataSnapshot : snapshot.child("Comments").getChildren()){
-                    Comment newComment = dataSnapshot.getValue(Comment.class);
-                    commentArrayList.add(newComment);
-
-
-                }
-
-                postAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        //add comment
         addRatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference commentReference = db.child("Comments").push();
-                addRatingBtn.setVisibility(View.INVISIBLE);
-                String commentContent = addCommentEditTxt.getText().toString();
-                String uName = "test";
-                Comment comment = new Comment(uName, commentContent);
+                String selectedModule = moduleSpinner.getSelectedItem().toString();
+                String selectedProf = profSpinner.getSelectedItem().toString();
+                float klausurRatingValue = klausurRating.getRating();
+                float vorlesungRatingValue = vorlesungRating.getRating();
+                float praktikumRatingValue = praktikumRating.getRating();
+                String comment = addCommentEditTxt.getText().toString();
 
-                commentReference.setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(FrageBogenActivity.this, "Comment added",Toast.LENGTH_LONG).show();
-                        addCommentEditTxt.setText("");
-                        addRatingBtn.setVisibility(View.VISIBLE);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(FrageBogenActivity.this, "Comment fail to be added"+e.getMessage(),Toast.LENGTH_LONG).show();
-                    }
-                });
+                // Save the ratings and comment to Firebase
+                saveRatingsAndComment(selectedModule, selectedProf, klausurRatingValue, vorlesungRatingValue, praktikumRatingValue, comment);
             }
         });
     }
-
-
-
 
     private void professorSelector(String[] items) {
         ArrayAdapter<String> adapterProf = new ArrayAdapter<String>(this,
@@ -255,4 +212,39 @@ public class FrageBogenActivity extends AppCompatActivity {
         adapterProf.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         profSpinner.setAdapter(adapterProf);
     }
+
+    private void saveRatingsAndComment(String selectedModule, String selectedProf, float klausurRatingValue,
+                                       float vorlesungRatingValue, float praktikumRatingValue, String comment) {
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        db = FirebaseDatabase.getInstance().getReference().child("Ratings");
+
+        if (user != null) {
+            String userId = user.getUid();
+            DatabaseReference moduleRatingsRef = db.child(selectedModule);
+            DatabaseReference professorRatingsRef = moduleRatingsRef.child(selectedProf);
+
+            // Create a new unique key for each rating entry
+            String ratingId = professorRatingsRef.push().getKey();
+
+            // Save the ratings
+            DatabaseReference ratingsRef = professorRatingsRef.child(ratingId).child("Ratings");
+            ratingsRef.child("Klausur").setValue(klausurRatingValue);
+            ratingsRef.child("Vorlesung").setValue(vorlesungRatingValue);
+            ratingsRef.child("Praktikum").setValue(praktikumRatingValue);
+
+            // Save the comment
+            if (!comment.isEmpty()) {
+                DatabaseReference commentRef = professorRatingsRef.child(ratingId).child("Comment");
+                commentRef.setValue(comment);
+            }
+
+            Toast.makeText(FrageBogenActivity.this, "Ratings and comment saved successfully", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(FrageBogenActivity.this, "User not authenticated", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
 }

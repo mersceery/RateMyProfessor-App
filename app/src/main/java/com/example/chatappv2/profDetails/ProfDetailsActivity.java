@@ -1,32 +1,88 @@
 package com.example.chatappv2.profDetails;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.chatappv2.EditProfile;
 import com.example.chatappv2.LoginActivity;
 import com.example.chatappv2.MainActivity;
 import com.example.chatappv2.R;
+import com.example.chatappv2.allProfs.RecViewProfInterface;
+import com.example.chatappv2.fragebogen.Comment;
+import com.example.chatappv2.fragebogen.PostAdapter;
 import com.example.chatappv2.mainMenu.MainMenu;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class ProfDetailsActivity extends AppCompatActivity {
     private ImageView chatButton;
     private ImageView homeButton;
     private ImageView login1Button;
+    PostAdapter postAdapter;
+    private TextView klausurText;
+
+    private TextView vorlesungText;
+
+    private TextView praktikumText;
+    private TextView profDesctv;
+    private TextView profPhonenummbertv;
+    private TextView profNametv;
+    private TextView profEmailtv;
+    private TextView profWebsitetv;
+    private ImageView profImageiv;
+    RecyclerView commentList;
+
+    ArrayList<Comment> commentArrayList;
+
+
 
     private ImageView editProfileButton2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        commentArrayList = new ArrayList<>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prof_details);
+        postAdapter = new PostAdapter(ProfDetailsActivity.this, commentArrayList);
+        profNametv = findViewById(R.id.profNameTxt);
+        profDesctv = findViewById(R.id.profDetailsTxt);
+        profImageiv = findViewById(R.id.profImage);
+        profEmailtv = findViewById(R.id.emailTxt);
+        profPhonenummbertv = findViewById(R.id.phonenumberTxt);
         chatButton = findViewById(R.id.chat_button);
         homeButton = findViewById(R.id.home_button);
         login1Button = findViewById(R.id.login1_button);
         editProfileButton2 = findViewById(R.id.settings_button);
+        klausurText = findViewById(R.id.klausurRating2);
+        vorlesungText = findViewById(R.id.klausurRating);
+        praktikumText = findViewById(R.id.klausurRating3);
+        commentList = findViewById(R.id.commentList);
+        commentList.setLayoutManager(new LinearLayoutManager(this));
+        commentList.setAdapter(postAdapter);
+        String profName = getIntent().getStringExtra("NAME");
+        String profDesc = getIntent().getStringExtra("SHORT_DESC");
+        String profImage = getIntent().getStringExtra("IMAGE_URL");
+        profNametv.setText(profName);
+        profDesctv.setText(profDesc);
+        Glide.with(ProfDetailsActivity.this)
+                .asBitmap()
+                .load(profImage)
+                .into(profImageiv);
+        fetchData(profName);
         //start navBar
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,15 +111,71 @@ public class ProfDetailsActivity extends AppCompatActivity {
             }
         });
 
-    editProfileButton2.setOnClickListener(new View.OnClickListener() {
+        editProfileButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), EditProfile.class);
                 startActivity(intent);
                 finish(); // close the loginActivity properly
             }
-      });
+        });
         //end navBar
-
     }
+    public void fetchData (String professorName) {
+        DatabaseReference ratingsRef = FirebaseDatabase.getInstance().getReference()
+                .child("Ratings");
+
+        ratingsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    // Data exists for the provided module and professor
+                    float totalKlausurRating = 0;
+                    float totalVorlesungRating = 0;
+                    float totalPraktikumRating = 0;
+                    int ratingCount = 0;
+
+                    for (DataSnapshot ratingSnapshot : dataSnapshot.getChildren()) {
+                        for(DataSnapshot moduleSnapshot : ratingSnapshot.getChildren()){
+                            for (DataSnapshot profSnapShot : moduleSnapshot.getChildren()) {
+                            if (moduleSnapshot.getKey().equals(professorName)) {
+                                float klausurRating = profSnapShot.child("Ratings").child("Klausur").getValue(Float.class);
+                                float vorlesungRating = profSnapShot.child("Ratings").child("Vorlesung").getValue(Float.class);
+                                float praktikumRating = profSnapShot.child("Ratings").child("Praktikum").getValue(Float.class);
+
+                                // Accumulate the ratings
+                                totalKlausurRating += klausurRating;
+                                totalVorlesungRating += vorlesungRating;
+                                totalPraktikumRating += praktikumRating;
+                                ratingCount++;
+                                String comment = profSnapShot.child("Comment").getValue(String.class);
+                                String userName = "";
+                                Comment commentObject = new Comment(userName, comment);
+                                commentArrayList.add(commentObject);
+                            }
+                        }
+                        }
+
+                        // Calculate the average ratings
+                        float averageKlausurRating = totalKlausurRating / ratingCount;
+                        float averageVorlesungRating = totalVorlesungRating / ratingCount;
+                        float averagePraktikumRating = totalPraktikumRating / ratingCount;
+
+                        klausurText.setText(String.valueOf(averageKlausurRating));
+                        vorlesungText.setText(String.valueOf(averageVorlesungRating));
+                        praktikumText.setText(String.valueOf(averagePraktikumRating));
+                        Log.d("ProfDetailsActivity", "Comments retrieved successfully");
+                    }
+
+                postAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle the error
+            }
+        });
+    }
+
+
 }

@@ -20,18 +20,20 @@ import com.example.chatappv2.MainActivity;
 import com.example.chatappv2.R;
 import com.example.chatappv2.Utils;
 import com.example.chatappv2.mainMenu.MainMenu;
+import com.example.chatappv2.modules.ModulesAdapter;
+import com.example.chatappv2.profDetails.ProfDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class AllProfsActivity extends AppCompatActivity {
+public class AllProfsActivity extends AppCompatActivity implements RecViewProfInterface{
 
     private RecyclerView profsRecView;
     private ProfRecViewAdapter adapter;
-
+    int modulePosition;
     private SearchView searchView;
     private ImageView btnBack;
-
+    private ArrayList<Professor> allProfs;
     private ImageView chatButton;
     private ImageView homeButton;
     private ImageView login1Button;
@@ -44,7 +46,8 @@ public class AllProfsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_profs);
-
+        allProfs = new ArrayList<Professor>();
+        modulePosition = getIntent().getIntExtra("modulePosition", 0);
         chatButton = findViewById(R.id.chat_button);
         homeButton = findViewById(R.id.home_button);
         login1Button = findViewById(R.id.login1_button);
@@ -52,12 +55,12 @@ public class AllProfsActivity extends AppCompatActivity {
 
         profsRecView = findViewById(R.id.profsRecView);
         btnBack = findViewById(R.id.backBtn);
-        adapter = new ProfRecViewAdapter(this, "allProfs");
+        adapter = new ProfRecViewAdapter(this, "allProfs", this);
         profsRecView.setAdapter(adapter);
         profsRecView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter.setProfs(Utils.getInstance(this).getAllProfs());
-
+        adapter.setProfs(Utils.getInstance(this).getAllProfs(modulePosition));
+        allProfs = Utils.getInstance(this).getAllProfs(modulePosition);
         searchView = findViewById(R.id.searchView);
         searchView.clearFocus(); //avoid edit text in lower level API jaga" doang remove the cursor einfach
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -118,7 +121,7 @@ public class AllProfsActivity extends AppCompatActivity {
 
     private void fileList(String text) {
         ArrayList<Professor> filteredList = new ArrayList<>();
-        for(Professor profs : Utils.getInstance(this).getAllProfs()){
+        for(Professor profs : Utils.getInstance(this).getAllProfs(modulePosition)){
             if(profs.getName().toLowerCase().contains(text.toLowerCase())){
                 filteredList.add(profs);
             }
@@ -130,6 +133,16 @@ public class AllProfsActivity extends AppCompatActivity {
         }else{
             adapter.setFilteredList(filteredList);
         }
+    }
+
+    @Override
+    public void onItemClicked(int position) {
+        Intent intent = new Intent(AllProfsActivity.this, ProfDetailsActivity.class);
+        intent.putExtra("NAME", allProfs.get(position).getName());
+        intent.putExtra("SHORT_DESC", allProfs.get(position).getShortDesc());
+        intent.putExtra("IMAGE_URL", allProfs.get(position).getImageUrl());
+        startActivity(intent);
+
     }
 
 //    @Override
