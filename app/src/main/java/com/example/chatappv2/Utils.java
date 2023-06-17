@@ -24,8 +24,8 @@ public class Utils {
     private ArrayList<Professor> profsMathe = new ArrayList<>();
     private ArrayList<Professor> profsTGI = new ArrayList<>();
     private ArrayList<Professor> profsAuD = new ArrayList<>();
-    private ArrayList<Professor> pg1 = new ArrayList<>();
-    private ArrayList<Professor> its = new ArrayList<>();
+    private ArrayList<Professor> profsPG1 = new ArrayList<>();
+    private ArrayList<Professor> profsITS = new ArrayList<>();
     public Utils(){
         initData();
     }
@@ -39,7 +39,11 @@ public class Utils {
         profsMathe.add(new Professor("Romana Piat", 5.0, "Mathe 1 Professor in Informatik Fakultat", "https://www.itm.kit.edu/img/PiatNew2(1).jpg"));
 
         profsTGI.add(new Professor("Maier", 4.0, "TGI Professor in Informatik Fakultat", "https://staticg.sportskeeda.com/editor/2021/04/f7504-16196838481260-800.jpg"));
-        profsAuD.add(new Professor("Jung",4.0, "TGI Professor in Informatik Fakultat", "https://staticg.sportskeeda.com/editor/2021/04/f7504-16196838481260-800.jpg" ));
+        profsAuD.add(new Professor("Jung",4.0, "AUD Professor in Informatik Fakultat", "https://static.wikia.nocookie.net/dccu/images/b/b1/Generic_Placeholder.png/revision/latest?cb=20140107063435" ));
+        profsAuD.add(new Professor("Alternbend",4.0, "AUD Professor in Informatik Fakultat", "https://static.wikia.nocookie.net/dccu/images/b/b1/Generic_Placeholder.png/revision/latest?cb=20140107063435" ));
+        profsPG1.add(new Professor("Skroch",0, "PG1 Professor in Informatik Fakultat", "https://static.wikia.nocookie.net/dccu/images/b/b1/Generic_Placeholder.png/revision/latest?cb=20140107063435"));
+        profsITS.add(new Professor("Rathgeb", 0, "ITS Professor in Informatik Fakultat", "https://static.wikia.nocookie.net/dccu/images/b/b1/Generic_Placeholder.png/revision/latest?cb=20140107063435"));
+
     }
 
     public static Utils getInstance(Context context) { //synchronized make it thread safe
@@ -56,11 +60,11 @@ public class Utils {
             case 0:
                 return profsAuD;
             case 1:
-                return its;
+                return profsITS;
             case 2:
                 return profsMathe;
             case 3:
-                return pg1;
+                return profsPG1;
             case 4:
                 return profsTGI;
             default:

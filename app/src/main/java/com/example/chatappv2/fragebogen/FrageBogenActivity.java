@@ -148,11 +148,11 @@ public class FrageBogenActivity extends AppCompatActivity {
 
         profSpinner = findViewById(R.id.professorSpinner);
 
-        String[] itemsProfPG1 = new String[]{"Skorch", "Muller", "Jung", "Budi", "Roth"};
-        String[] itemsProfAuD = new String[]{"Jung", "Alternbend", "Puki", "Meki", "Ikem"};
-        String[] itemsProfTGI = new String[]{"THE", "GOAT", "MAIER"};
+        String[] itemsProfPG1 = new String[]{"Skroch"};
+        String[] itemsProfAuD = new String[]{"Jung", "Alternbend"};
+        String[] itemsProfTGI = new String[]{"Maier"};
         String[] itemsProfMATHE1 = new String[]{"Hechler", "Piat"};
-        String[] itemsProfITS = new String[]{"Rathgeb", "Heinemann", "Templar Assasin", "Invoker", "Meepo"};
+        String[] itemsProfITS = new String[]{"Rathgeb"};
 
         moduleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

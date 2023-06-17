@@ -20,6 +20,8 @@ import com.example.chatappv2.chat.Chat;
 import com.example.chatappv2.fragebogen.FrageBogenActivity;
 import com.example.chatappv2.modules.Module;
 import com.example.chatappv2.modules.ModulesActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -50,6 +52,10 @@ public class MainMenu extends AppCompatActivity {
     private TextView professor1txt;
     private TextView professor2txt;
     private TextView professor3txt;
+    DatabaseReference databaseReference;
+    FirebaseUser user;
+    String uid;
+    private TextView welcomeTxt;
 
     private ImageView modul1;
     private ImageView modul2;
@@ -62,6 +68,45 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+        welcomeTxt = findViewById(R.id.greeting_textview);
+        databaseReference =FirebaseDatabase.getInstance().getReferenceFromUrl("https://chatappv2-cbaed-default-rtdb.firebaseio.com/");
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
+        String userEmail = user.getEmail();
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                outerloop:{
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                            if (dataSnapshot.getKey().equals("users")) {
+                                String getEmail = child.child("email").getValue(String.class);
+                                String getName = child.child("name").getValue(String.class);
+
+
+                                if (getEmail == null || getEmail.isEmpty()) {
+                                    getEmail = "N/A";
+                                }
+                                if (getName == null || getName.isEmpty()) {
+                                    getName = "N/A";
+                                }
+                                if (userEmail.equals(getEmail)) {
+                                    welcomeTxt.setText("Welcome " + getName);
+                                    break outerloop;
+                                }else{
+                                    welcomeTxt.setText("Welcome Guest");
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         // Find views by their IDs
         editProfileImg = findViewById(R.id.editProfile_button2);
         viewAllButton = findViewById(R.id.view_all_button);
