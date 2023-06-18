@@ -24,7 +24,7 @@ import com.example.chatappv2.professorDetails.PostDetailActivity;
 import java.util.ArrayList;
 
 public class ProfRecViewAdapter extends RecyclerView.Adapter<ProfRecViewAdapter.ViewHolder> {
-
+    private final RecViewProfInterface recViewProfInterface;
     private static final String TAG = "ProfRecViewAdapter";
     private ArrayList<Professor> profs = new ArrayList<>();
 
@@ -32,17 +32,18 @@ public class ProfRecViewAdapter extends RecyclerView.Adapter<ProfRecViewAdapter.
 
     private String parentActivity;
 
-    public ProfRecViewAdapter(Context mContext, String parentActivity) {
+    public ProfRecViewAdapter(Context mContext, String parentActivity, RecViewProfInterface recViewProfInterface1) {
         this.mContext = mContext;
         this.parentActivity = parentActivity;
+        this.recViewProfInterface = recViewProfInterface1;
     }
 
     @NonNull
     @Override
     //ini biasa ny begini, copas aja katanya
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_prof, parent, false);
-        return new ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_prof, null);
+        return new ViewHolder(view, recViewProfInterface);
     }
 
     @Override
@@ -55,15 +56,10 @@ public class ProfRecViewAdapter extends RecyclerView.Adapter<ProfRecViewAdapter.
                 .into(holder.imgProf);
 
         holder.txtProfShortDesc.setText(profs.get(position).getShortDesc());
-        holder.ratingBarProf.setRating((float)profs.get(position).getRating());
 
-        holder.imgProf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, ProfDetailsActivity.class);
-                mContext.startActivity(intent);
-            }
-        });
+
+
+
 
     }
 
@@ -81,24 +77,35 @@ public class ProfRecViewAdapter extends RecyclerView.Adapter<ProfRecViewAdapter.
 
         private ImageView imgProf;
         private TextView txtProfName, txtProfShortDesc;
-        private RatingBar ratingBarProf;
+
 
         //add comment
         private ImageView imgUserAddComment;
         private EditText editTxtAddComment;
         private Button btnAddComment;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, RecViewProfInterface recViewProfInterface) {
             super(itemView);
             imgProf = itemView.findViewById(R.id.imageViewProf);
             txtProfName = itemView.findViewById(R.id.txtProfName);
             txtProfShortDesc = itemView.findViewById(R.id.txtProfShortDesc);
-            ratingBarProf = itemView.findViewById(R.id.ratingBarProf);
+
 
             //add comment
             imgUserAddComment = itemView.findViewById(R.id.postCommendPicture);
             editTxtAddComment = itemView.findViewById(R.id.typeComment);
 
+            imgProf.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(recViewProfInterface != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            recViewProfInterface.onItemClicked(position);
+                        }
+                    }
+                }
+            });
 
         }
     }
@@ -107,3 +114,4 @@ public class ProfRecViewAdapter extends RecyclerView.Adapter<ProfRecViewAdapter.
         notifyDataSetChanged();
     }
 }
+

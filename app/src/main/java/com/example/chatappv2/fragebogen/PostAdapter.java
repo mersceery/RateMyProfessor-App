@@ -3,6 +3,7 @@ package com.example.chatappv2.fragebogen;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,6 @@ import com.example.chatappv2.R;
 import java.util.ArrayList;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
-    Comment comment;
     Context context;
     ArrayList<Comment> commentArrayList;
 
@@ -28,15 +28,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     }
 
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.item, parent, false);
-        return new MyViewHolder(v);
+        View view = LayoutInflater.from(context).inflate(R.layout.item, null);
+        Log.d("PostAdapter", "Comment being added to recyclerview");
+        return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Comment comment = commentArrayList.get(position);
-        holder.username.setText(comment.username);
-        holder.comment.setText(comment.comment);
+        Log.d("PostAdapter", "Comment being set");
+        holder.comment.setText(comment.getComment());
 
     }
 
@@ -49,13 +50,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
 
 
-        TextView comment, username;
+        TextView comment;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
 
             comment = itemView.findViewById(R.id.tvComment);
-            username = itemView.findViewById(R.id.tvUsername);
 
         }
     }

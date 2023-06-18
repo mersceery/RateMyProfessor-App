@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.chatappv2.mainMenu.MainMenu;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -37,7 +38,7 @@ public class TwitterActivity extends Register {
                             new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
-                                    startActivity(new Intent(TwitterActivity.this, MainActivity.class));
+                                    startActivity(new Intent(TwitterActivity.this, MainMenu.class));
                                     Toast.makeText(TwitterActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                                 }
                             })
@@ -56,7 +57,7 @@ public class TwitterActivity extends Register {
                             new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
-                                    startActivity(new Intent(TwitterActivity.this, MainActivity.class));
+                                    startActivity(new Intent(TwitterActivity.this, MainMenu.class));
                                     Toast.makeText(TwitterActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                                 }
                             })

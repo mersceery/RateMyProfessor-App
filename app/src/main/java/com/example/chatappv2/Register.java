@@ -44,7 +44,7 @@ public class Register extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), MainMenu.class);
             startActivity(intent);
             finish(); // close the loginActivity properly
         }
@@ -95,15 +95,7 @@ public class Register extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading...");
 
-        //check if user already logged in
-        if(!MemoryData.getData(this).isEmpty()){
-            Intent intent = new Intent(Register.this, MainActivity.class);
-            intent.putExtra("mobile", MemoryData.getData(this));
-            intent.putExtra("name", MemoryData.getName(this));
-            intent.putExtra("email", "");
-            startActivity(intent);
-            finish();
-        }
+
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,9 +121,6 @@ public class Register extends AppCompatActivity {
 
                                         Toast.makeText(Register.this, "Account created.",
                                                 Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                        startActivity(intent);
-                                        finish();
 
                                     } else {
                                         // If sign in fails, display a message to the user.
@@ -168,7 +157,7 @@ public class Register extends AppCompatActivity {
 
                                 Toast.makeText(Register.this, "Success", Toast.LENGTH_SHORT).show();
 
-                                Intent intent = new Intent(Register.this, MainMenu.class);
+                                Intent intent = new Intent(Register.this, LoginActivity.class);
                                 intent.putExtra("mobile", mobileTxt);
                                 intent.putExtra("name", nameTxt);
                                 intent.putExtra("email", emailTxt);

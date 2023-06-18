@@ -4,7 +4,6 @@ package com.example.chatappv2;
 import android.content.Context;
 
 import com.example.chatappv2.allProfs.Professor;
-import com.example.chatappv2.listEmails.User;
 
 import java.util.ArrayList;
 
@@ -22,23 +21,28 @@ public class Utils {
 
 
     private static Utils instance;
-    private ArrayList<Professor> profs = new ArrayList<>();
-    private ArrayList<User> users = new ArrayList<>();
-
-    public ArrayList<User> getUsers() {
-        return users;
+    private ArrayList<Professor> profsMathe = new ArrayList<>();
+    private ArrayList<Professor> profsTGI = new ArrayList<>();
+    private ArrayList<Professor> profsAuD = new ArrayList<>();
+    private ArrayList<Professor> profsPG1 = new ArrayList<>();
+    private ArrayList<Professor> profsITS = new ArrayList<>();
+    public Utils(){
+        initData();
     }
-
     public Utils(Context context) {
         initData();
     }
 
     private void initData(){
-        profs.add(new Professor("Hechler", 5.0, "Mathe 1 Professor in Informatik Fakultat", "https://static.vecteezy.com/system/resources/thumbnails/009/383/709/small/woman-face-expression-clipart-design-illustration-free-png.png"));
+        profsMathe.add(new Professor("Hechler", 5.0, "Mathe 1 Professor in Informatik Fakultat", "https://static.vecteezy.com/system/resources/thumbnails/009/383/709/small/woman-face-expression-clipart-design-illustration-free-png.png"));
 
-        profs.add(new Professor("Romana Piat", 5.0, "Mathe 1 Professor in Informatik Fakultat", "https://www.itm.kit.edu/img/PiatNew2(1).jpg"));
+        profsMathe.add(new Professor("Romana Piat", 5.0, "Mathe 1 Professor in Informatik Fakultat", "https://www.itm.kit.edu/img/PiatNew2(1).jpg"));
 
-        //profs.add(new Professor("KEKW", 5.0, "Z Professor in Informatik Fakultat", "https://staticg.sportskeeda.com/editor/2021/04/f7504-16196838481260-800.jpg"));
+        profsTGI.add(new Professor("Maier", 4.0, "TGI Professor in Informatik Fakultat", "https://staticg.sportskeeda.com/editor/2021/04/f7504-16196838481260-800.jpg"));
+        profsAuD.add(new Professor("Jung",4.0, "AUD Professor in Informatik Fakultat", "https://static.wikia.nocookie.net/dccu/images/b/b1/Generic_Placeholder.png/revision/latest?cb=20140107063435" ));
+        profsAuD.add(new Professor("Alternbend",4.0, "AUD Professor in Informatik Fakultat", "https://static.wikia.nocookie.net/dccu/images/b/b1/Generic_Placeholder.png/revision/latest?cb=20140107063435" ));
+        profsPG1.add(new Professor("Skroch",0, "PG1 Professor in Informatik Fakultat", "https://static.wikia.nocookie.net/dccu/images/b/b1/Generic_Placeholder.png/revision/latest?cb=20140107063435"));
+        profsITS.add(new Professor("Rathgeb", 0, "ITS Professor in Informatik Fakultat", "https://static.wikia.nocookie.net/dccu/images/b/b1/Generic_Placeholder.png/revision/latest?cb=20140107063435"));
 
     }
 
@@ -51,7 +55,20 @@ public class Utils {
         }
     }
 
-    public ArrayList<Professor> getAllProfs(){
-        return profs;
+    public ArrayList<Professor> getAllProfs(String moduleName) {
+        switch (moduleName) {
+            case "AUD":
+                return profsAuD;
+            case "ITS":
+                return profsITS;
+            case "MATHE 1":
+                return profsMathe;
+            case "PG 1":
+                return profsPG1;
+            case "TGI":
+                return profsTGI;
+            default:
+                return null;
+        }
     }
 }

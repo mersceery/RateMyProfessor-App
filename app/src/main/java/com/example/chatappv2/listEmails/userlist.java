@@ -9,10 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.example.chatappv2.EditProfile;
 import com.example.chatappv2.LoginActivity;
-import com.example.chatappv2.MainActivity;
 import com.example.chatappv2.R;
 import com.example.chatappv2.mainMenu.MainMenu;
 import com.example.chatappv2.sendEmail;
@@ -36,6 +37,9 @@ public class userlist extends AppCompatActivity implements RecyclerViewInterface
     private ImageView login1Button;
     private ImageView editProfileButton2;
     private ImageView btnBack;
+    private SearchView searchView;
+
+    ArrayList<User> filteredList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +61,7 @@ public class userlist extends AppCompatActivity implements RecyclerViewInterface
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), userlist.class);
                 startActivity(intent);
                 finish(); // close the loginActivity properly
             }
@@ -130,16 +134,50 @@ public class userlist extends AppCompatActivity implements RecyclerViewInterface
 
             }
         });
+        searchView = findViewById(R.id.searchView);
+        searchView.clearFocus(); //avoid edit text in lower level API jaga" doang remove the cursor einfach
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                fileList(newText);
+                return false;
+            }
+        });
 
     }
+    private void fileList(String text) {
+        for(User users : list){
+            if(users.getFirstName().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(users);
+            }
+            else if(users.getLastName().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(users);
+            }
+            else if(users.getAge().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(users);
+            }
+        }
+
+        if(filteredList.isEmpty()){
+            Toast.makeText(this, "No Data Found", Toast.LENGTH_SHORT).show();
+
+        }else{
+            myAdapter.setFilteredList(filteredList);
+        }
+    }
+
 
     @Override
     public void onItemClick(int position) {
-            Intent intent = new Intent(userlist.this, sendEmail.class);
+        Intent intent = new Intent(userlist.this, sendEmail.class);
 
-            intent.putExtra("EMAIL", list.get(position).getFirstName());
-            intent.putExtra("NAME", list.get(position).getLastName());
-            startActivity(intent);
+        intent.putExtra("EMAIL", filteredList.get(position).getFirstName());
+        intent.putExtra("NAME", filteredList.get(position).getLastName());
+        startActivity(intent);
     }
 }

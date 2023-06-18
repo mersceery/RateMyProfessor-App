@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.chatappv2.listEmails.userlist;
 import com.example.chatappv2.mainMenu.MainMenu;
 
 public class sendEmail extends AppCompatActivity {
@@ -44,7 +45,7 @@ public class sendEmail extends AppCompatActivity {
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), userlist.class);
                 startActivity(intent);
                 finish(); // close the loginActivity properly
             }

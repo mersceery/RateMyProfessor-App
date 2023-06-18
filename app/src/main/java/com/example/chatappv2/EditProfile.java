@@ -9,7 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.chatappv2.listEmails.userlist;
 import com.example.chatappv2.mainMenu.MainMenu;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class EditProfile extends AppCompatActivity {
 
@@ -24,11 +26,12 @@ public class EditProfile extends AppCompatActivity {
 
     private Button logoutBtn;
     private Button saveChangesBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-
+        logoutBtn = findViewById(R.id.btnLogout2);
         chatButton = findViewById(R.id.chat_button);
         homeButton = findViewById(R.id.home_button);
         login1Button = findViewById(R.id.login1_button);
@@ -55,7 +58,7 @@ public class EditProfile extends AppCompatActivity {
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), userlist.class);
                 startActivity(intent);
                 finish(); // close the loginActivity properly
             }
@@ -78,7 +81,15 @@ public class EditProfile extends AppCompatActivity {
                 finish(); // close the loginActivity properly
             }
         });
-
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                //  finish();
+            }
+        });
         editProfileButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,5 +98,6 @@ public class EditProfile extends AppCompatActivity {
                 finish(); // close the loginActivity properly
             }
         });
+
     }
 }

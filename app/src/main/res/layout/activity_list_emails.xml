@@ -36,10 +36,10 @@
         android:id="@+id/emailList"
         android:layout_width="338dp"
         android:layout_height="558dp"
-        app:layout_constraintBottom_toTopOf="@+id/navigation_bar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/searchView" />
+        app:layout_constraintTop_toTopOf="@+id/guideline16" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline16"
@@ -47,14 +47,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="87dp" />
+
     <LinearLayout
-        android:translationZ="100dp"
         android:id="@+id/navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:background="@color/black"
         android:orientation="horizontal"
+        android:translationZ="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 

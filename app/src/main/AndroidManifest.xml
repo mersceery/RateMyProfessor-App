@@ -44,9 +44,6 @@
             android:name=".allProfs.AllProfsActivity"
             android:exported="false" />
         <activity
-            android:name=".HomescreenActivity"
-            android:exported="false" />
-        <activity
             android:name=".LoginActivity"
             android:exported="true" />
         <activity
@@ -56,13 +53,7 @@
             android:name=".listEmails.userlist"
             android:exported="false" />
         <activity
-            android:name=".chat.Chat"
-            android:exported="false" />
-        <activity
             android:name=".Register"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
             android:exported="false" />
     </application>
 

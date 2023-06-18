@@ -1,7 +1,6 @@
 package com.example.chatappv2.modules;
 
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,23 +8,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SearchView;
 
 import com.example.chatappv2.EditProfile;
 import com.example.chatappv2.LoginActivity;
-import com.example.chatappv2.MainActivity;
 import com.example.chatappv2.R;
+import com.example.chatappv2.allProfs.AllProfsActivity;
+import com.example.chatappv2.listEmails.userlist;
 import com.example.chatappv2.mainMenu.MainMenu;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ModulesActivity extends AppCompatActivity {
+public class ModulesActivity extends AppCompatActivity implements  ModuleRecViewInterface{
 
     RecyclerView recyclerView;
     ModulesAdapter modulesAdapter;
@@ -37,6 +32,9 @@ public class ModulesActivity extends AppCompatActivity {
     private ImageView editProfileButton2;
 
     private ImageView bckButton;
+    private SearchView searchView;
+    ArrayList<Module> filteredList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +43,12 @@ public class ModulesActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         moduleArrayList = new ArrayList<Module>();
-        modulesAdapter = new ModulesAdapter(ModulesActivity.this, moduleArrayList);
-        Module module1 = new Module("Aud");
-        Module module2 = new Module("TGI");
-        Module module3 = new Module("Mathe 1");
+        modulesAdapter = new ModulesAdapter(ModulesActivity.this, moduleArrayList, this);
+        Module module1 = new Module("AUD");
+        Module module5 = new Module("TGI");
+        Module module3 = new Module("MATHE 1");
         Module module4 = new Module("PG 1");
-        Module module5 = new Module("ITS");
+        Module module2 = new Module("ITS");
         moduleArrayList.add(module1);
         moduleArrayList.add(module2);
         moduleArrayList.add(module3);
@@ -75,7 +73,7 @@ public class ModulesActivity extends AppCompatActivity {
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), userlist.class);
                 startActivity(intent);
                 finish(); // close the loginActivity properly
             }
@@ -108,5 +106,47 @@ public class ModulesActivity extends AppCompatActivity {
             }
         });
 
+        searchView = findViewById(R.id.searchView);
+        searchView.clearFocus(); //avoid edit text in lower level API jaga" doang remove the cursor einfach
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                fileList(newText);
+                return false;
+            }
+        });
+
+    }
+
+    private void fileList(String text) {
+        filteredList.clear();
+        for(Module modules : moduleArrayList){
+            if(modules.getModuleName().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(modules);
+            }
+        }
+
+        if(filteredList.isEmpty()){
+            modulesAdapter.setFilteredList(moduleArrayList);
+        }else{
+            modulesAdapter.setFilteredList(filteredList);
+        }
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(getApplicationContext(), AllProfsActivity.class);
+        if(!filteredList.isEmpty()) {
+            intent.putExtra("ModuleName", filteredList.get(position).getModuleName());
+        }
+        else{
+            intent.putExtra("ModuleName", moduleArrayList.get(position).getModuleName());
+        }
+        startActivity(intent);
     }
 }
