@@ -8,10 +8,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.chatappv2.listEmails.userlist;
 import com.example.chatappv2.mainMenu.MainMenu;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class EditProfile extends AppCompatActivity {
 
@@ -40,11 +47,45 @@ public class EditProfile extends AppCompatActivity {
         editTextEmail = findViewById(R.id.EditEmailEditTxt);
         editTextName = findViewById(R.id.editNameEditTxt);
         saveChangesBtn = findViewById(R.id.saveChangesBtn);
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser == null) {
+            // User not logged in, show pop-up message
+            Toast.makeText(EditProfile.this, "You need to be logged in", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(EditProfile.this, LoginActivity.class);
+            startActivity(intent);
+            // User logged in, proceed to EditProfile activity
+        }
 
-        saveChangesBtn.setOnClickListener(new View.OnClickListener() {
+        String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        editTextEmail.setText(userEmail);
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+        usersRef.orderByChild("email").equalTo(userEmail).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        String userKey = snapshot.getKey();
+                        String name = snapshot.child("name").getValue(String.class);
+                        editTextName.setText(name);
+                        final String finalUserKey = userKey;
+                        saveChangesBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String newEmail = editTextEmail.getText().toString().trim();
+                                String newName = editTextName.getText().toString().trim();
+                                usersRef.child(finalUserKey).child("email").setValue(newEmail);
+                                usersRef.child(finalUserKey).child("name").setValue(newName);
+                                Toast.makeText(EditProfile.this, "Changes saved successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle any errors
             }
         });
 
