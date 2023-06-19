@@ -80,10 +80,11 @@ public class EditProfile extends AppCompatActivity {
                     String userKey = snapshot.getKey();
                     String name = snapshot.child("name").getValue(String.class);
                     String profilePicUrl = snapshot.child("profile_pic").getValue(String.class);
-                    Picasso.get()
-                            .load(profilePicUrl)
-                            .placeholder(R.drawable.andre_tate)
-                            .into(profilePic);
+                    if(profilePicUrl.isEmpty()){
+                        Picasso.get().load(R.drawable.andre_tate).into(profilePic);
+                    } else {
+                        Picasso.get().load(profilePicUrl).placeholder(R.drawable.andre_tate).into(profilePic);
+                    }
                     editTextName.setText(name);
                     editTextEmail.setText(userEmail);
                     saveChangesBtn.setOnClickListener(new View.OnClickListener() {
