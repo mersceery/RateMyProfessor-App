@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.chatappv2.EditProfile;
 import com.example.chatappv2.LoginActivity;
@@ -208,9 +209,15 @@ public class MainMenu extends AppCompatActivity {
         rateProfessorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), FrageBogenActivity.class);
-                startActivity(intent);
-                // close the loginActivity properly
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (currentUser == null) {
+                    // User is not logged in, display toast message
+                    Toast.makeText(getApplicationContext(), "You need to be logged in", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), FrageBogenActivity.class);
+                    startActivity(intent);
+                    // close the loginActivity properly
+                }
             }
         });
 
@@ -244,9 +251,15 @@ public class MainMenu extends AppCompatActivity {
         editProfileButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), EditProfile.class);
-                startActivity(intent);
-               // close the loginActivity properly
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (currentUser == null) {
+                    // User is not logged in, display toast message
+                    Toast.makeText(getApplicationContext(), "You need to be logged in", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), EditProfile.class);
+                    startActivity(intent);
+                    // close the loginActivity properly
+                }
             }
         });
         retrieveAndProcessTopRatings();

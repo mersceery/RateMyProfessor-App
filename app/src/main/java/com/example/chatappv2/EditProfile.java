@@ -1,5 +1,6 @@
 package com.example.chatappv2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -68,45 +69,48 @@ public class EditProfile extends AppCompatActivity {
         StorageReference storageRef = storage.getReference();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-
-        String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
         checkLoggedInUser(currentUser);
-        usersRef.orderByChild("email").equalTo(userEmail).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    DataSnapshot snapshot = dataSnapshot.getChildren().iterator().next();
-                    String userKey = snapshot.getKey();
-                    String name = snapshot.child("name").getValue(String.class);
-                    String profilePicUrl = snapshot.child("profile_pic").getValue(String.class);
-                    if(profilePicUrl.isEmpty()){
-                        Picasso.get().load(R.drawable.andre_tate).into(profilePic);
-                    } else {
-                        Picasso.get().load(profilePicUrl).placeholder(R.drawable.andre_tate).into(profilePic);
-                    }
-                    editTextName.setText(name);
-                    editTextEmail.setText(userEmail);
-                    saveChangesBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            String newEmail = editTextEmail.getText().toString().trim();
-                            String newName = editTextName.getText().toString().trim();
-                            usersRef.child(userKey).child("email").setValue(newEmail);
-                            usersRef.child(userKey).child("name").setValue(newName);
-                            currentUser.updateEmail(newEmail);
-                            Toast.makeText(EditProfile.this, "Changes saved successfully", Toast.LENGTH_SHORT).show();
+
+        if(currentUser != null) {
+            String userEmail = currentUser.getEmail();
+            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+            usersRef.orderByChild("email").equalTo(userEmail).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        DataSnapshot snapshot = dataSnapshot.getChildren().iterator().next();
+                        String userKey = snapshot.getKey();
+                        String name = snapshot.child("name").getValue(String.class);
+                        String profilePicUrl = snapshot.child("profile_pic").getValue(String.class);
+                        if(profilePicUrl.isEmpty()){
+                            Picasso.get().load(R.drawable.andre_tate).into(profilePic);
+                        } else {
+                            Picasso.get().load(profilePicUrl).placeholder(R.drawable.andre_tate).into(profilePic);
                         }
-                    });
+                        editTextName.setText(name);
+                        editTextEmail.setText(userEmail);
+                        saveChangesBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String newEmail = editTextEmail.getText().toString().trim();
+                                String newName = editTextName.getText().toString().trim();
+                                usersRef.child(userKey).child("email").setValue(newEmail);
+                                usersRef.child(userKey).child("name").setValue(newName);
+                                currentUser.updateEmail(newEmail);
+                                Toast.makeText(EditProfile.this, "Changes saved successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Handle any errors
-            }
-        });
+            });
+        }
 
         bckButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,7 +176,7 @@ public class EditProfile extends AppCompatActivity {
         if (currentUser == null) {
             // User not logged in, show pop-up message
             Toast.makeText(EditProfile.this, "You need to be logged in", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(EditProfile.this, LoginActivity.class);
+            Intent intent = new Intent(EditProfile.this, MainMenu.class);
             startActivity(intent);
             // User logged in, proceed to EditProfile activity
         }
@@ -246,7 +250,6 @@ public class EditProfile extends AppCompatActivity {
     private void uploadImageToFirebaseDatabase(Uri imageUri) {
         String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
-
         usersRef.orderByChild("email").equalTo(userEmail).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
