@@ -75,6 +75,7 @@ public class EditProfile extends AppCompatActivity {
                                 String newName = editTextName.getText().toString().trim();
                                 usersRef.child(finalUserKey).child("email").setValue(newEmail);
                                 usersRef.child(finalUserKey).child("name").setValue(newName);
+                                currentUser.updateEmail(newEmail);
                                 Toast.makeText(EditProfile.this, "Changes saved successfully", Toast.LENGTH_SHORT).show();
                             }
                         });
