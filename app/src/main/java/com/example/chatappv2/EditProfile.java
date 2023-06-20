@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.chatappv2.listEmails.userlist;
 import com.example.chatappv2.mainMenu.MainMenu;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -66,7 +68,6 @@ public class EditProfile extends AppCompatActivity {
 
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         checkLoggedInUser(currentUser);
@@ -97,6 +98,10 @@ public class EditProfile extends AppCompatActivity {
                                 usersRef.child(userKey).child("email").setValue(newEmail);
                                 usersRef.child(userKey).child("name").setValue(newName);
                                 currentUser.updateEmail(newEmail);
+                                /* updateEmail() sometimes doesn't work as expected because as documentation says: To set a user's email address,
+                                the user must have signed in recently. So make sure to log out and then login again when you first start the app
+                                with an already signed in user or else you might mess up the database (email is updated in realtime database but not in
+                                firebase auth)*/
                                 Toast.makeText(EditProfile.this, "Changes saved successfully", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -189,11 +194,10 @@ public class EditProfile extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             Uri imageUri = data.getData();
             profilePic.setImageURI(data.getData());
-            uploadImageToFirebaseDatabase(imageUri);
-            uploadImageToFirebaseStorage(imageUri);
+            uploadImageToFirebaseStorageAndDatabase(imageUri);
         }
     }
-    private void uploadImageToFirebaseStorage(Uri imageUri) {
+    private void uploadImageToFirebaseStorageAndDatabase(Uri imageUri) {
         // Create a reference to the Firebase Storage
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
@@ -213,7 +217,7 @@ public class EditProfile extends AppCompatActivity {
                     // Image uploaded successfully
                     // Get the download URL of the uploaded image
                     imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                        // Save the download URL to Firebase Database
+                        // Save the download URL to Firebase Realtime Database
                         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
                         usersRef.orderByChild("email").equalTo(userEmail).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -222,7 +226,7 @@ public class EditProfile extends AppCompatActivity {
                                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                         String imageUserKey = snapshot.getKey();
                                         usersRef.child(imageUserKey).child("profile_pic").setValue(uri.toString());
-                                        Toast.makeText(EditProfile.this, "Profile picture uploaded successfully", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(EditProfile.this, "Profile picture updated successfully", Toast.LENGTH_SHORT).show();
                                     }
                                 } else {
                                     // User not found
@@ -247,30 +251,5 @@ public class EditProfile extends AppCompatActivity {
                 });
     }
 
-    private void uploadImageToFirebaseDatabase(Uri imageUri) {
-        String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
-        usersRef.orderByChild("email").equalTo(userEmail).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        String imageUserKey = snapshot.getKey();
-                        usersRef.child(imageUserKey).child("profile_pic").setValue(imageUri.toString());
-                        Toast.makeText(EditProfile.this, "Successfully changed", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    // User not found
-                    Toast.makeText(EditProfile.this, "Failed to retrieve user data", Toast.LENGTH_SHORT).show();
-                }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Handle any errors
-                Toast.makeText(EditProfile.this, "Failed to retrieve user data", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
 }
