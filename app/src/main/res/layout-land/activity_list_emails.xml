@@ -9,14 +9,14 @@
         android:id="@+id/searchView"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="160dp"
+        android:layout_marginEnd="232dp"
         android:background="@drawable/search_view_bg"
         android:iconifiedByDefault="false"
         android:queryHint="Search Here..."
         app:layout_constraintBottom_toTopOf="@+id/guideline16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintVertical_bias="0.794" />
 
     <ImageView
 
@@ -43,6 +43,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline16">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:paddingLeft="120dp"
             android:id="@+id/emailList"
             android:layout_width="516dp"
             android:layout_height="238dp"
@@ -79,7 +80,7 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="chat button"
             android:scaleType="centerInside"
-            android:src="@drawable/chat_icon" />
+            android:src="@drawable/icon_chat_white" />
 
         <!-- Home button -->
         <ImageButton
@@ -90,7 +91,7 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="home button"
             android:scaleType="centerInside"
-            android:src="@drawable/home_btn" />
+            android:src="@drawable/icon_home_white" />
 
         <!-- Login button -->
         <ImageButton
@@ -101,7 +102,7 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="login1 button"
             android:scaleType="centerInside"
-            android:src="@drawable/login_btn" />
+            android:src="@drawable/icon_logout_white" />
 
         <!-- Settings button -->
         <ImageButton
@@ -112,7 +113,7 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="settings  button"
             android:scaleType="centerInside"
-            android:src="@drawable/setting_btn" />
+            android:src="@drawable/icon_setting_white" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

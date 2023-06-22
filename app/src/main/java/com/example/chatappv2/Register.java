@@ -62,6 +62,17 @@ public class Register extends AppCompatActivity {
         final AppCompatButton registerBtn = findViewById(R.id.r_registerBtn);
 
 
+        final TextView txtHome = findViewById(R.id.homeNow);
+
+        txtHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Register.this, MainMenu.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         final ProgressBar progressBar = findViewById(R.id.progressBar);
         final TextView loginNow = findViewById(R.id.loginNow);
 

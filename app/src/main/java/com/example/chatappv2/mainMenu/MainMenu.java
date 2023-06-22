@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -72,6 +73,7 @@ public class MainMenu extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         welcomeTxt = findViewById(R.id.greeting_textview);
+        editProfileImg = findViewById(R.id.editProfileImg);
 
         if(currentUser != null){
             databaseReference =FirebaseDatabase.getInstance().getReferenceFromUrl("https://chatappv2-cbaed-default-rtdb.firebaseio.com/");
@@ -89,6 +91,13 @@ public class MainMenu extends AppCompatActivity {
                                     String getEmail = child.child("email").getValue(String.class);
                                     String getName = child.child("name").getValue(String.class);
                                     String getRole = child.child("role").getValue(String.class);
+                                    String getImgUrl = child.child("profile_pic").getValue(String.class);
+
+                                    if(getImgUrl.isEmpty()){
+                                        Picasso.get().load(R.drawable.andre_tate).into(editProfileImg);
+                                    } else {
+                                        Picasso.get().load(getImgUrl).placeholder(R.drawable.andre_tate).into(editProfileImg);
+                                    }
 
                                     if(teacherRole.equals(getRole)){
                                         rateProfessorButton.setVisibility(View.GONE);
@@ -124,13 +133,12 @@ public class MainMenu extends AppCompatActivity {
         }
 
         // Find views by their IDs
-        editProfileImg = findViewById(R.id.editProfile_button2);
         viewAllButton = findViewById(R.id.view_all_button);
         rateProfessorButton = findViewById(R.id.rate_professor_button);
         chatButton = findViewById(R.id.chat_button);
         homeButton = findViewById(R.id.home_button);
         login1Button = findViewById(R.id.login1_button);
-        editProfileButton2 = findViewById(R.id.editProfileImg);
+        editProfileButton2 = findViewById(R.id.editProfile_button2);
         professor1 = findViewById(R.id.professor1);
         professor2 = findViewById(R.id.professor2);
         professor3 = findViewById(R.id.professor3);

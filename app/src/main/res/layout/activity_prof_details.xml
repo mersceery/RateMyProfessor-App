@@ -24,7 +24,7 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="chat button"
             android:scaleType="centerInside"
-            android:src="@drawable/chat_icon" />
+            android:src="@drawable/icon_chat_white" />
 
         <!-- Home button -->
         <ImageView
@@ -35,7 +35,7 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="home button"
             android:scaleType="centerInside"
-            android:src="@drawable/home_btn" />
+            android:src="@drawable/icon_home_white" />
 
         <!-- Login button -->
         <ImageView
@@ -46,7 +46,7 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="login1 button"
             android:scaleType="centerInside"
-            android:src="@drawable/login_btn" />
+            android:src="@drawable/icon_logout_white" />
 
         <!-- Settings button -->
         <ImageView
@@ -57,7 +57,7 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="settings  button"
             android:scaleType="centerInside"
-            android:src="@drawable/setting_btn" />
+            android:src="@drawable/icon_setting_white" />
 
     </LinearLayout>
 

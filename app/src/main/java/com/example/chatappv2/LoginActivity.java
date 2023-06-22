@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
     ProgressBar progressBar;
 
-    TextView txtClickToRegister;
+    TextView txtClickToRegister, txtHome;
 
     ImageView twitterLogin;
 
@@ -64,11 +64,21 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         txtClickToRegister = findViewById(R.id.registerNow);
+        txtHome = findViewById(R.id.homeNow);
+
+        txtHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, MainMenu.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         txtClickToRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Register.class);
+                Intent intent = new Intent(LoginActivity.this, Register.class);
                 startActivity(intent);
                 LoginActivity.this.finish(); //end the current activity
             }

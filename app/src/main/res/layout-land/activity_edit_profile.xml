@@ -86,18 +86,6 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="214dp" />
 
-        <Button
-            android:id="@+id/btnLogout2"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_gravity="center"
-            android:text="Logout"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/editNameEditTxt"
-            app:layout_constraintHorizontal_bias="0.459"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline"
-            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/fullNameTxt"
@@ -180,7 +168,7 @@
                 android:background="@color/cardview_dark_background"
                 android:contentDescription="chat button"
                 android:scaleType="centerInside"
-                android:src="@drawable/chat_icon" />
+                android:src="@drawable/icon_chat_white" />
 
             <!-- Home button -->
             <ImageButton
@@ -191,7 +179,7 @@
                 android:background="@color/cardview_dark_background"
                 android:contentDescription="home button"
                 android:scaleType="centerInside"
-                android:src="@drawable/home_btn" />
+                android:src="@drawable/icon_home_white" />
 
             <!-- Login button -->
 
@@ -204,7 +192,7 @@
                 android:background="@color/cardview_dark_background"
                 android:contentDescription="login1 button"
                 android:scaleType="centerInside"
-                android:src="@drawable/login_btn" />
+                android:src="@drawable/icon_logout_white" />
 
             <ImageButton
                 android:id="@+id/settings_button"
@@ -214,12 +202,12 @@
                 android:background="@color/cardview_dark_background"
                 android:contentDescription="settings  button"
                 android:scaleType="centerInside"
-                android:src="@drawable/setting_btn" />
+                android:src="@drawable/icon_setting_white" />
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnLogout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"

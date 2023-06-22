@@ -53,25 +53,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="545dp" />
+        app:layout_constraintGuide_begin="564dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="299dp" />
+        app:layout_constraintGuide_begin="344dp" />
 
     <TextView
         android:id="@+id/editProfileTxt"
-        android:layout_width="145dp"
-        android:layout_height="wrap_content"
+        android:layout_width="159dp"
+        android:layout_height="55dp"
         android:text="Edit Profile"
         android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.38"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.375"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changeProfilePicBtn" />
 
     <EditText
         android:id="@+id/editNameEditTxt"
@@ -93,13 +94,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="411dp" />
+        app:layout_constraintGuide_begin="444dp" />
 
     <TextView
         android:id="@+id/fullNameTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="103dp"
+        android:layout_marginStart="72dp"
         android:layout_marginTop="9dp"
         android:layout_marginBottom="15dp"
         android:text="Full Name"
@@ -112,12 +113,12 @@
         android:id="@+id/editEmailTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="72dp"
         android:text="Email"
         app:layout_constraintBottom_toTopOf="@+id/EditEmailEditTxt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
-        app:layout_constraintVertical_bias="0.63" />
+        app:layout_constraintVertical_bias="0.642" />
 
     <EditText
         android:id="@+id/EditEmailEditTxt"
@@ -163,7 +164,7 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="chat button"
             android:scaleType="centerInside"
-            android:src="@drawable/chat_icon" />
+            android:src="@drawable/icon_chat_white" />
 
         <!-- Home button -->
         <ImageButton
@@ -174,7 +175,7 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="home button"
             android:scaleType="centerInside"
-            android:src="@drawable/home_btn" />
+            android:src="@drawable/icon_home_white" />
 
         <!-- Login button -->
 
@@ -187,7 +188,7 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="login1 button"
             android:scaleType="centerInside"
-            android:src="@drawable/login_btn" />
+            android:src="@drawable/icon_logout_white" />
 
         <ImageButton
             android:id="@+id/settings_button"
@@ -197,7 +198,7 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="settings  button"
             android:scaleType="centerInside"
-            android:src="@drawable/setting_btn" />
+            android:src="@drawable/icon_setting_white" />
 
     </LinearLayout>
 

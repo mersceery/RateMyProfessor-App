@@ -33,9 +33,10 @@
         app:layout_constraintTop_toTopOf="@+id/searchView" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginLeft="35dp"
         android:id="@+id/emailList"
         android:layout_width="338dp"
-        android:layout_height="558dp"
+        android:layout_height="680dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +69,7 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="chat button"
             android:scaleType="centerInside"
-            android:src="@drawable/chat_icon" />
+            android:src="@drawable/icon_chat_white" />
 
         <!-- Home button -->
         <ImageButton
@@ -79,7 +80,7 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="home button"
             android:scaleType="centerInside"
-            android:src="@drawable/home_btn" />
+            android:src="@drawable/icon_home_white" />
 
         <!-- Login button -->
         <ImageButton
@@ -90,7 +91,7 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="login1 button"
             android:scaleType="centerInside"
-            android:src="@drawable/login_btn" />
+            android:src="@drawable/icon_logout_white" />
 
         <!-- Settings button -->
         <ImageButton
@@ -101,7 +102,7 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="settings  button"
             android:scaleType="centerInside"
-            android:src="@drawable/setting_btn" />
+            android:src="@drawable/icon_setting_white" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

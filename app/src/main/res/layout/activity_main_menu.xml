@@ -42,13 +42,13 @@
 
         <RelativeLayout
             android:id="@+id/podium_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="368dp"
+            android:layout_height="187dp"
             android:layout_below="@+id/greeting_textview"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:background="#C2C8BB"
             android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:background="#2A383F"
             android:gravity="center_horizontal">
 
             <!-- Professor 2 (Left) -->
@@ -65,14 +65,16 @@
                     android:id="@+id/professor2"
                     android:layout_width="100dp"
                     android:layout_height="120dp"
-                    android:src="@drawable/juara2f" />
+                    android:src="@drawable/rank2" />
+
 
                 <TextView
                     android:id="@+id/professor2name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Professor 2" />
-
+                    android:text="Professor 2"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <!-- Professor 1 (Middle) -->
@@ -88,13 +90,15 @@
                     android:id="@+id/professor1"
                     android:layout_width="100dp"
                     android:layout_height="150dp"
-                    android:src="@drawable/juara1f" />
+                    android:src="@drawable/rank1" />
 
                 <TextView
                     android:id="@+id/professor1name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Professor 1" />
+                    android:text="Professor 1"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -104,21 +108,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="24dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginRight="24dp"
                 android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/professor3"
                     android:layout_width="100dp"
                     android:layout_height="120dp"
-                    android:src="@drawable/juara3f" />
+                    android:src="@drawable/rank3" />
 
                 <TextView
+                    android:textColor="@color/white"
                     android:id="@+id/professor3name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Professor 3" />
+                    android:text="Professor 3"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -165,7 +171,7 @@
                         android:id="@+id/module1"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/un10" />
+                        android:src="@drawable/aud_module" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -187,7 +193,7 @@
                         android:id="@+id/module2"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/un10" />
+                        android:src="@drawable/its_module" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -209,7 +215,7 @@
                         android:id="@+id/module3"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/un10" />
+                        android:src="@drawable/math_module" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -232,7 +238,7 @@
                         android:id="@+id/module4"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/un10" />
+                        android:src="@drawable/pg_module" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -254,7 +260,7 @@
                         android:id="@+id/module5"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/un10" />
+                        android:src="@drawable/tgi_module" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -282,7 +288,6 @@
             android:layout_marginTop="16dp"/>
 
         <ImageView
-
             android:id="@+id/rate_professor_button"
             android:layout_width="match_parent"
             android:layout_height="150dp"
@@ -291,11 +296,11 @@
             android:layout_marginTop="48dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:background="#2A383F"
+            android:background="@drawable/background_podium"
             android:backgroundTint="#2A383F"
             android:contentDescription="rmp button"
             android:scaleType="fitCenter"
-            android:src="@drawable/rate_my_prof_icon"
+            android:src="@drawable/ratemyprof_logo"
             android:text="Rate my Professors"
             android:textSize="16sp" />
 
@@ -304,7 +309,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/black"
+            android:background="@color/cardview_dark_background"
             android:orientation="horizontal">
 
             <!-- Chat button -->
@@ -313,7 +318,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/chat_icon"
+                android:src="@drawable/icon_chat_white"
                 android:scaleType="centerInside"
                 android:background="@color/cardview_dark_background"
                 android:contentDescription="chat button" />
@@ -324,7 +329,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/home_btn"
+                android:src="@drawable/icon_home_white"
                 android:scaleType="centerInside"
                 android:background="@color/cardview_dark_background"
                 android:contentDescription="home button" />
@@ -335,7 +340,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/login_btn"
+                android:src="@drawable/icon_logout_white"
                 android:scaleType="centerInside"
                 android:background="@color/cardview_dark_background"
                 android:contentDescription="login1 button" />
@@ -346,7 +351,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/setting_btn"
+                android:src="@drawable/icon_setting_white"
                 android:scaleType="centerInside"
                 android:background="@color/cardview_dark_background"
                 android:contentDescription="settings  button" />

@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true" >
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -25,7 +30,7 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="chat button"
             android:scaleType="centerInside"
-            android:src="@drawable/chat_icon" />
+            android:src="@drawable/icon_chat_white" />
 
         <!-- Home button -->
         <ImageView
@@ -36,7 +41,7 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="home button"
             android:scaleType="centerInside"
-            android:src="@drawable/home_btn" />
+            android:src="@drawable/icon_home_white" />
 
         <!-- Login button -->
         <ImageView
@@ -47,7 +52,7 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="login1 button"
             android:scaleType="centerInside"
-            android:src="@drawable/login_btn" />
+            android:src="@drawable/icon_logout_white" />
 
         <!-- Settings button -->
         <ImageView
@@ -58,12 +63,12 @@
             android:background="@color/cardview_dark_background"
             android:contentDescription="settings  button"
             android:scaleType="centerInside"
-            android:src="@drawable/setting_btn" />
+            android:src="@drawable/icon_setting_white" />
 
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/profImage"
         android:layout_width="112dp"
         android:layout_height="148dp"
         android:layout_marginStart="52dp"
@@ -258,8 +263,10 @@
         android:layout_height="144dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="@+id/guideline18"
-        app:layout_constraintTop_toTopOf="@+id/guideline9" />
+        app:layout_constraintBottom_toTopOf="@id/navigation_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline9" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline11"
@@ -311,3 +318,4 @@
         app:layout_constraintGuide_begin="20dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
