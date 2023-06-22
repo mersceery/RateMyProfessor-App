@@ -136,7 +136,7 @@ public class userlist extends AppCompatActivity implements RecyclerViewInterface
             }
         });
         searchView = findViewById(R.id.searchView);
-        searchView.clearFocus(); //avoid edit text in lower level API jaga" doang remove the cursor einfach
+        searchView.clearFocus(); //avoid edit text in lower level API jaga" doang remove the cursor einfachh
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
