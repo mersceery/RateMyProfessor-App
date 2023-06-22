@@ -29,6 +29,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Register extends AppCompatActivity {
     FirebaseAuth mAuth;
 
@@ -122,6 +125,9 @@ public class Register extends AppCompatActivity {
                 if(nameTxt.isEmpty() || mobileTxt.isEmpty() || emailTxt.isEmpty() || passwordTxt.isEmpty()){
                     Toast.makeText(Register.this, "All Fields Required!", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
+                }else if (!isValidEmail(emailTxt)) {
+                    Toast.makeText(Register.this, "Invalid Email!", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                 }else{
                     mAuth.createUserWithEmailAndPassword(emailTxt, passwordTxt)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -189,5 +195,11 @@ public class Register extends AppCompatActivity {
         });
 
 
+    }
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 }

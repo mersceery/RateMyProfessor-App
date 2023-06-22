@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ProfDetailsActivity extends AppCompatActivity {
@@ -168,9 +169,14 @@ public class ProfDetailsActivity extends AppCompatActivity {
                     float averageVorlesungRating = totalVorlesungRating / ratingCount;
                     float averagePraktikumRating = totalPraktikumRating / ratingCount;
 
-                    klausurText.setText(String.valueOf(averageKlausurRating));
-                    vorlesungText.setText(String.valueOf(averageVorlesungRating));
-                    praktikumText.setText(String.valueOf(averagePraktikumRating));
+                    DecimalFormat decimalFormat = new DecimalFormat("#.#");
+                    String formattedKlausurRating = decimalFormat.format(averageKlausurRating);
+                    String formattedVorlesungRating = decimalFormat.format(averageVorlesungRating);
+                    String formattedPraktikumRating = decimalFormat.format(averagePraktikumRating);
+
+                    klausurText.setText(formattedKlausurRating);
+                    vorlesungText.setText(formattedVorlesungRating);
+                    praktikumText.setText(formattedPraktikumRating);
                     Log.d("ProfDetailsActivity", "Comments retrieved successfully");
                     for(Comment comment : commentArrayList){
                         Log.d("ProfDetailsActivity",comment.getComment());
