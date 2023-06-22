@@ -123,6 +123,7 @@ public class userlist extends AppCompatActivity implements RecyclerViewInterface
 
                             User user = new User(getEmail, getName, getRole);
                             list.add(user);
+                            filteredList.add(user);
                         }
 
                         myAdapter.notifyDataSetChanged();
@@ -151,6 +152,7 @@ public class userlist extends AppCompatActivity implements RecyclerViewInterface
 
     }
     private void fileList(String text) {
+        filteredList.clear();
         for(User users : list){
             if(users.getFirstName().toLowerCase().contains(text.toLowerCase())){
                 filteredList.add(users);
