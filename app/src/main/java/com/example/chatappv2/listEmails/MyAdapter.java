@@ -1,10 +1,12 @@
 package com.example.chatappv2.listEmails;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatappv2.R;
 import com.example.chatappv2.allProfs.Professor;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -46,6 +49,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.firstName.setText(user.getFirstName());
         holder.lastName.setText(user.getLastName());
         holder.age.setText(user.getAge());
+        String profilePicUrl = user.getProfilePicUrl();
+        if (profilePicUrl != null && !profilePicUrl.isEmpty()) {
+            Picasso.get().load(profilePicUrl).transform(new CircleTransform()).into(holder.profilePic);
+        } else {
+            Picasso.get().load(R.drawable.andre_tate).into(holder.profilePic);
+        }
 
 
     }
@@ -59,12 +68,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         TextView firstName, lastName, age;
 
+        ImageView profilePic;
+
         public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
 
             firstName = itemView.findViewById(R.id.tvfirstName);
             lastName = itemView.findViewById(R.id.tvlastName);
             age = itemView.findViewById(R.id.tvage);
+            profilePic = itemView.findViewById(R.id.tvprofilePic);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
