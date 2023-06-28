@@ -109,6 +109,7 @@ public class userlist extends AppCompatActivity implements RecyclerViewInterface
                             String getEmail = child.child("email").getValue(String.class);
                             String getName = child.child("name").getValue(String.class);
                             String getRole = child.child("role").getValue(String.class);
+                            String getProfilePicUrl = child.child("profile_pic").getValue(String.class);
 
 
                             if (getEmail == null || getEmail.isEmpty()) {
@@ -121,9 +122,8 @@ public class userlist extends AppCompatActivity implements RecyclerViewInterface
                                 getRole = "N/A";
                             }
 
-                            User user = new User(getEmail, getName, getRole);
+                            User user = new User(getEmail, getName, getRole, getProfilePicUrl);
                             list.add(user);
-                            filteredList.add(user);
                         }
 
                         myAdapter.notifyDataSetChanged();
@@ -136,7 +136,7 @@ public class userlist extends AppCompatActivity implements RecyclerViewInterface
             }
         });
         searchView = findViewById(R.id.searchView);
-        searchView.clearFocus(); //avoid edit text in lower level API jaga" doang remove the cursor einfachh
+        searchView.clearFocus(); //avoid edit text in lower level API jaga" doang remove the cursor einfach
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -152,7 +152,6 @@ public class userlist extends AppCompatActivity implements RecyclerViewInterface
 
     }
     private void fileList(String text) {
-        filteredList.clear();
         for(User users : list){
             if(users.getFirstName().toLowerCase().contains(text.toLowerCase())){
                 filteredList.add(users);
