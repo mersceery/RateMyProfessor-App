@@ -213,26 +213,28 @@ public class FrageBogenActivity extends AppCompatActivity {
         db = FirebaseDatabase.getInstance().getReference().child("Ratings");
 
         if (user != null) {
-            String userId = user.getUid();
-            DatabaseReference moduleRatingsRef = db.child(selectedModule);
-            DatabaseReference professorRatingsRef = moduleRatingsRef.child(selectedProf);
-
-            // Create a new unique key for each rating entry
-            String ratingId = professorRatingsRef.push().getKey();
-
-            // Save the ratings
-            DatabaseReference ratingsRef = professorRatingsRef.child(ratingId).child("Ratings");
-            ratingsRef.child("Klausur").setValue(klausurRatingValue);
-            ratingsRef.child("Vorlesung").setValue(vorlesungRatingValue);
-            ratingsRef.child("Praktikum").setValue(praktikumRatingValue);
-
-            // Save the comment
             if (!comment.isEmpty()) {
+                String userId = user.getUid();
+                DatabaseReference moduleRatingsRef = db.child(selectedModule);
+                DatabaseReference professorRatingsRef = moduleRatingsRef.child(selectedProf);
+
+                // Create a new unique key for each rating entry
+                String ratingId = professorRatingsRef.push().getKey();
+
+                // Save the ratings
+                DatabaseReference ratingsRef = professorRatingsRef.child(ratingId).child("Ratings");
+                ratingsRef.child("Klausur").setValue(klausurRatingValue);
+                ratingsRef.child("Vorlesung").setValue(vorlesungRatingValue);
+                ratingsRef.child("Praktikum").setValue(praktikumRatingValue);
+
+                // Save the comment
                 DatabaseReference commentRef = professorRatingsRef.child(ratingId).child("Comment");
                 commentRef.setValue(comment);
+                Toast.makeText(FrageBogenActivity.this, "Ratings and comment saved successfully", Toast.LENGTH_SHORT).show();
             }
-
-            Toast.makeText(FrageBogenActivity.this, "Ratings and comment saved successfully", Toast.LENGTH_SHORT).show();
+            else if(comment.isEmpty()){
+                Toast.makeText(FrageBogenActivity.this, "Comment section cannot be empty", Toast.LENGTH_SHORT).show();
+            }
         } else {
             Toast.makeText(FrageBogenActivity.this, "User not authenticated", Toast.LENGTH_SHORT).show();
         }
