@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/search_view_bg"
+        android:background="@drawable/brown_outline"
         android:iconifiedByDefault="false"
         android:queryHint="Search Here..."
         app:layout_constraintBottom_toTopOf="@+id/guideline4"

@@ -20,13 +20,13 @@
 
             <ImageView
                 android:id="@+id/editProfileImg"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="63dp"
+                android:layout_height="63dp"
                 android:layout_gravity="end"
                 android:contentDescription="login button"
                 android:padding="12dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/user_icon" />
+                android:src="@drawable/defaultprofilepicture" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/toolbar"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:text="Hi Kontol!"
             android:layout_marginLeft="16dp"
             android:textSize="24sp" />
