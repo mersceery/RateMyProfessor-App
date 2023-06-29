@@ -33,10 +33,10 @@
         app:layout_constraintTop_toTopOf="@+id/searchView" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginLeft="35dp"
         android:id="@+id/emailList"
-        android:layout_width="338dp"
-        android:layout_height="680dp"
+        android:layout_width="318dp"
+        android:layout_height="564dp"
+        android:layout_marginLeft="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
