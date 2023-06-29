@@ -144,7 +144,7 @@ public class FrageBogenActivity extends AppCompatActivity {
         String[] itemsProfPG1 = new String[]{"Skroch"};
         String[] itemsProfAuD = new String[]{"Jung", "Alternbend"};
         String[] itemsProfTGI = new String[]{"Maier"};
-        String[] itemsProfMATHE1 = new String[]{"Hechler", "Romana Piat"};
+        String[] itemsProfMATHE1 = new String[]{"Hechler", "Romana Piat", "Pepe the Frog"};
         String[] itemsProfITS = new String[]{"Rathgeb"};
 
         String selectedProfessor = getIntent().getStringExtra("SELECTED_PROFESSOR");
