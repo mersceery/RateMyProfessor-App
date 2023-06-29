@@ -147,29 +147,36 @@ public class FrageBogenActivity extends AppCompatActivity {
         String[] itemsProfMATHE1 = new String[]{"Hechler", "Romana Piat"};
         String[] itemsProfITS = new String[]{"Rathgeb"};
 
+        String selectedProfessor = getIntent().getStringExtra("SELECTED_PROFESSOR");
+        String selectedModule2 = getIntent().getStringExtra("SELECTED_MODULE");
+
+
+        int selectionPosition = adapter.getPosition(selectedModule2);
+        moduleSpinner.setSelection(selectionPosition);
+
         moduleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String moduleSpinnerString = moduleSpinner.getSelectedItem().toString();
                 switch (moduleSpinnerString) {
                     case "PG1": {
-                        professorSelector(itemsProfPG1);
+                        professorSelector(itemsProfPG1, selectedProfessor);
                         break;
                     }
                     case "AuD": {
-                        professorSelector(itemsProfAuD);
+                        professorSelector(itemsProfAuD, selectedProfessor);
                         break;
                     }
                     case "TGI": {
-                        professorSelector(itemsProfTGI);
+                        professorSelector(itemsProfTGI, selectedProfessor);
                         break;
                     }
                     case "MATHE1": {
-                        professorSelector(itemsProfMATHE1);
+                        professorSelector(itemsProfMATHE1, selectedProfessor);
                         break;
                     }
                     case "ITS": {
-                        professorSelector(itemsProfITS);
+                        professorSelector(itemsProfITS, selectedProfessor);
                         break;
                     }
                     default:
@@ -182,6 +189,7 @@ public class FrageBogenActivity extends AppCompatActivity {
 
             }
         });
+
 
         addRatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,11 +207,23 @@ public class FrageBogenActivity extends AppCompatActivity {
         });
     }
 
-    private void professorSelector(String[] items) {
+    private void professorSelector(String[] items, String selectedProfessor) {
         ArrayAdapter<String> adapterProf = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, items);
         adapterProf.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         profSpinner.setAdapter(adapterProf);
+
+        int selectedProfessorPosition = adapterProf.getPosition(selectedProfessor);
+        profSpinner.setSelection(selectedProfessorPosition);
+    }
+
+
+    private void professorSelector2(String[] items) {
+        ArrayAdapter<String> adapterProf = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, items);
+        adapterProf.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        profSpinner.setAdapter(adapterProf);
+
     }
 
     private void saveRatingsAndComment(String selectedModule, String selectedProf, float klausurRatingValue,
