@@ -44,6 +44,56 @@ public class Utils {
         profsPG1.add(new Professor("Skroch",0, "PG1 Professor in Informatik Fakultat", "https://static.wikia.nocookie.net/dccu/images/b/b1/Generic_Placeholder.png/revision/latest?cb=20140107063435"));
         profsITS.add(new Professor("Rathgeb", 0, "ITS Professor in Informatik Fakultat", "https://static.wikia.nocookie.net/dccu/images/b/b1/Generic_Placeholder.png/revision/latest?cb=20140107063435"));
 
+        profsMathe.add(new Professor("Pepe the Frog", 5.0, "Mathe 1 Professor in Informatik Fakultat", "https://ichef.bbci.co.uk/news/976/cpsprodpb/16620/production/_91408619_55df76d5-2245-41c1-8031-07a4da3f313f.jpg"));
+
+    }
+
+    public static Utils getInstance() {
+        return instance;
+    }
+
+    public static void setInstance(Utils instance) {
+        Utils.instance = instance;
+    }
+
+    public ArrayList<Professor> getProfsMathe() {
+        return profsMathe;
+    }
+
+    public void setProfsMathe(ArrayList<Professor> profsMathe) {
+        this.profsMathe = profsMathe;
+    }
+
+    public ArrayList<Professor> getProfsTGI() {
+        return profsTGI;
+    }
+
+    public void setProfsTGI(ArrayList<Professor> profsTGI) {
+        this.profsTGI = profsTGI;
+    }
+
+    public ArrayList<Professor> getProfsAuD() {
+        return profsAuD;
+    }
+
+    public void setProfsAuD(ArrayList<Professor> profsAuD) {
+        this.profsAuD = profsAuD;
+    }
+
+    public ArrayList<Professor> getProfsPG1() {
+        return profsPG1;
+    }
+
+    public void setProfsPG1(ArrayList<Professor> profsPG1) {
+        this.profsPG1 = profsPG1;
+    }
+
+    public ArrayList<Professor> getProfsITS() {
+        return profsITS;
+    }
+
+    public void setProfsITS(ArrayList<Professor> profsITS) {
+        this.profsITS = profsITS;
     }
 
     public static Utils getInstance(Context context) { //synchronized make it thread safe

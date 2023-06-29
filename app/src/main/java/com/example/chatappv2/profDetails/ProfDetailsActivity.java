@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +17,10 @@ import com.bumptech.glide.Glide;
 import com.example.chatappv2.EditProfile;
 import com.example.chatappv2.LoginActivity;
 import com.example.chatappv2.R;
+import com.example.chatappv2.Utils;
+import com.example.chatappv2.allProfs.Professor;
 import com.example.chatappv2.fragebogen.Comment;
+import com.example.chatappv2.fragebogen.FrageBogenActivity;
 import com.example.chatappv2.fragebogen.PostAdapter;
 import com.example.chatappv2.listEmails.userlist;
 import com.example.chatappv2.mainMenu.MainMenu;
@@ -49,8 +53,9 @@ public class ProfDetailsActivity extends AppCompatActivity {
     RecyclerView commentList;
 
     ArrayList<Comment> commentArrayList;
+    private Button rateButton;
 
-
+    private Utils profUtils = new Utils();
 
     private ImageView editProfileButton2;
     @Override
@@ -85,6 +90,58 @@ public class ProfDetailsActivity extends AppCompatActivity {
         commentList.setAdapter(postAdapter);
         fetchData(profName);
         bckButton = findViewById(R.id.backBtn);
+        rateButton = findViewById(R.id.rateButton);
+        rateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to FragebogenActivity
+                Intent intent = new Intent(ProfDetailsActivity.this, FrageBogenActivity.class);
+
+                // Pass selected professor and modules to FragebogenActivity
+                String selectedProfessor = profNametv.getText().toString();
+                for (Professor professor : profUtils.getProfsITS()) {
+                    String name = professor.getName();
+                   if(name.equals(profName)){
+                       intent.putExtra("SELECTED_PROFESSOR", selectedProfessor);
+                       intent.putExtra("SELECTED_MODULE", "ITS");
+                       break;
+                   }
+                }
+                for (Professor professor : profUtils.getProfsPG1()) {
+                    String name = professor.getName();
+                    if(name.equals(profName)){
+                        intent.putExtra("SELECTED_PROFESSOR", selectedProfessor);
+                        intent.putExtra("SELECTED_MODULE", "PG1");
+                        break;
+                    }
+                }
+                for (Professor professor : profUtils.getProfsAuD()) {
+                    String name = professor.getName();
+                    if(name.equals(profName)){
+                        intent.putExtra("SELECTED_PROFESSOR", selectedProfessor);
+                        intent.putExtra("SELECTED_MODULE", "AuD");
+                        break;
+                    }
+                }
+                for (Professor professor : profUtils.getProfsTGI()) {
+                    String name = professor.getName();
+                    if(name.equals(profName)){
+                        intent.putExtra("SELECTED_PROFESSOR", selectedProfessor);
+                        intent.putExtra("SELECTED_MODULE", "TGI");
+                        break;
+                    }
+                }
+                for (Professor professor : profUtils.getProfsMathe()) {
+                    String name = professor.getName();
+                    if(name.equals(profName)){
+                        intent.putExtra("SELECTED_PROFESSOR", selectedProfessor);
+                        intent.putExtra("SELECTED_MODULE", "MATHE1");
+                        break;
+                    }
+                }
+                startActivity(intent);
+            }
+        });
 
         bckButton.setOnClickListener(new View.OnClickListener() {
             @Override
