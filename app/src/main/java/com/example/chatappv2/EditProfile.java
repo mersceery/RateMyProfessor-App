@@ -84,7 +84,7 @@ public class EditProfile extends AppCompatActivity {
                         String name = snapshot.child("name").getValue(String.class);
                         String profilePicUrl = snapshot.child("profile_pic").getValue(String.class);
                         if(profilePicUrl.isEmpty()){
-                            Picasso.get().load(R.drawable.andre_tate).into(profilePic);
+                            Picasso.get().load(R.drawable.user_icon).into(profilePic);
                         } else {
                             Picasso.get().load(profilePicUrl).placeholder(R.drawable.andre_tate).into(profilePic);
                         }
