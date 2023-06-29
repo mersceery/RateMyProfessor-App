@@ -94,10 +94,8 @@ public class ProfDetailsActivity extends AppCompatActivity {
         rateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to FragebogenActivity
                 Intent intent = new Intent(ProfDetailsActivity.this, FrageBogenActivity.class);
 
-                // Pass selected professor and modules to FragebogenActivity
                 String selectedProfessor = profNametv.getText().toString();
                 for (Professor professor : profUtils.getProfsITS()) {
                     String name = professor.getName();
