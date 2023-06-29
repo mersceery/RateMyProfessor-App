@@ -217,15 +217,6 @@ public class FrageBogenActivity extends AppCompatActivity {
         profSpinner.setSelection(selectedProfessorPosition);
     }
 
-
-    private void professorSelector2(String[] items) {
-        ArrayAdapter<String> adapterProf = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, items);
-        adapterProf.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        profSpinner.setAdapter(adapterProf);
-
-    }
-
     private void saveRatingsAndComment(String selectedModule, String selectedProf, float klausurRatingValue,
                                        float vorlesungRatingValue, float praktikumRatingValue, String comment) {
         auth = FirebaseAuth.getInstance();
