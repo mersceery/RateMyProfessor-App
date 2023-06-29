@@ -91,10 +91,6 @@ public class ProfRecViewAdapter extends RecyclerView.Adapter<ProfRecViewAdapter.
             txtProfShortDesc = itemView.findViewById(R.id.txtProfShortDesc);
 
 
-            //add comment
-            imgUserAddComment = itemView.findViewById(R.id.postCommendPicture);
-            editTxtAddComment = itemView.findViewById(R.id.typeComment);
-
             imgProf.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
