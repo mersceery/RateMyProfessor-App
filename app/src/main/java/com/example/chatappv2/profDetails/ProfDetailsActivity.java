@@ -88,9 +88,11 @@ public class ProfDetailsActivity extends AppCompatActivity {
         praktikumText = findViewById(R.id.klausurRating3);
         commentList = findViewById(R.id.commentList);
         commentList.setLayoutManager(new LinearLayoutManager(this));
+
         String profName = getIntent().getStringExtra("NAME");
         String profDesc = getIntent().getStringExtra("SHORT_DESC");
         String profImage = getIntent().getStringExtra("IMAGE_URL");
+        
         profNametv.setText(profName);
         profDesctv.setText(profDesc);
         Glide.with(ProfDetailsActivity.this)
