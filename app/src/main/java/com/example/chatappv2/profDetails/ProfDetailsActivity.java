@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.chatappv2.EditProfile;
@@ -24,11 +25,14 @@ import com.example.chatappv2.fragebogen.FrageBogenActivity;
 import com.example.chatappv2.fragebogen.PostAdapter;
 import com.example.chatappv2.listEmails.userlist;
 import com.example.chatappv2.mainMenu.MainMenu;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -58,10 +62,18 @@ public class ProfDetailsActivity extends AppCompatActivity {
     private Utils profUtils = new Utils();
 
     private ImageView editProfileButton2;
+    private FirebaseAuth mAuth;
+    DatabaseReference databaseReference;
+    FirebaseUser user;
+    String uid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prof_details);
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
         profNametv = findViewById(R.id.profNameTxt);
         profDesctv = findViewById(R.id.profDetailsTxt);
         profImageiv = findViewById(R.id.profImage);
@@ -91,53 +103,93 @@ public class ProfDetailsActivity extends AppCompatActivity {
         fetchData(profName);
         bckButton = findViewById(R.id.backBtn);
         rateButton = findViewById(R.id.rateButton);
+
+        if(currentUser != null){
+            databaseReference =FirebaseDatabase.getInstance().getReferenceFromUrl("https://chatappv2-cbaed-default-rtdb.firebaseio.com/");
+            user = FirebaseAuth.getInstance().getCurrentUser();
+            uid = user.getUid();
+            String userEmail = user.getEmail();
+            String teacherRole = "Teacher";
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    outerloop:{
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                if (dataSnapshot.getKey().equals("users")) {
+                                    String getRole = child.child("role").getValue(String.class);
+                                    String getEmail = child.child("email").getValue(String.class);
+
+                                    if(teacherRole.equals(getRole) && userEmail.equals(getEmail)){
+                                        rateButton.setVisibility(View.GONE);
+                                        break outerloop;
+                                    } else{
+                                        rateButton.setVisibility(View.VISIBLE);
+                                    }
+
+
+                                }
+
+                            }
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
         rateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfDetailsActivity.this, FrageBogenActivity.class);
-
-                String selectedProfessor = profNametv.getText().toString();
-                for (Professor professor : profUtils.getProfsITS()) {
-                    String name = professor.getName();
-                   if(name.equals(profName)){
-                       intent.putExtra("SELECTED_PROFESSOR", selectedProfessor);
-                       intent.putExtra("SELECTED_MODULE", "ITS");
-                       break;
-                   }
-                }
-                for (Professor professor : profUtils.getProfsPG1()) {
-                    String name = professor.getName();
-                    if(name.equals(profName)){
-                        intent.putExtra("SELECTED_PROFESSOR", selectedProfessor);
-                        intent.putExtra("SELECTED_MODULE", "PG1");
-                        break;
+                if (currentUser != null) {
+                    String selectedProfessor = profNametv.getText().toString();
+                    for (Professor professor : profUtils.getProfsITS()) {
+                        String name = professor.getName();
+                        if (name.equals(profName)) {
+                            intent.putExtra("SELECTED_PROFESSOR", selectedProfessor);
+                            intent.putExtra("SELECTED_MODULE", "ITS");
+                            break;
+                        }
                     }
-                }
-                for (Professor professor : profUtils.getProfsAuD()) {
-                    String name = professor.getName();
-                    if(name.equals(profName)){
-                        intent.putExtra("SELECTED_PROFESSOR", selectedProfessor);
-                        intent.putExtra("SELECTED_MODULE", "AuD");
-                        break;
+                    for (Professor professor : profUtils.getProfsPG1()) {
+                        String name = professor.getName();
+                        if (name.equals(profName)) {
+                            intent.putExtra("SELECTED_PROFESSOR", selectedProfessor);
+                            intent.putExtra("SELECTED_MODULE", "PG1");
+                            break;
+                        }
                     }
-                }
-                for (Professor professor : profUtils.getProfsTGI()) {
-                    String name = professor.getName();
-                    if(name.equals(profName)){
-                        intent.putExtra("SELECTED_PROFESSOR", selectedProfessor);
-                        intent.putExtra("SELECTED_MODULE", "TGI");
-                        break;
+                    for (Professor professor : profUtils.getProfsAuD()) {
+                        String name = professor.getName();
+                        if (name.equals(profName)) {
+                            intent.putExtra("SELECTED_PROFESSOR", selectedProfessor);
+                            intent.putExtra("SELECTED_MODULE", "AuD");
+                            break;
+                        }
                     }
-                }
-                for (Professor professor : profUtils.getProfsMathe()) {
-                    String name = professor.getName();
-                    if(name.equals(profName)){
-                        intent.putExtra("SELECTED_PROFESSOR", selectedProfessor);
-                        intent.putExtra("SELECTED_MODULE", "MATHE1");
-                        break;
+                    for (Professor professor : profUtils.getProfsTGI()) {
+                        String name = professor.getName();
+                        if (name.equals(profName)) {
+                            intent.putExtra("SELECTED_PROFESSOR", selectedProfessor);
+                            intent.putExtra("SELECTED_MODULE", "TGI");
+                            break;
+                        }
                     }
+                    for (Professor professor : profUtils.getProfsMathe()) {
+                        String name = professor.getName();
+                        if (name.equals(profName)) {
+                            intent.putExtra("SELECTED_PROFESSOR", selectedProfessor);
+                            intent.putExtra("SELECTED_MODULE", "MATHE1");
+                            break;
+                        }
+                    }
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(), "You need to be logged in", Toast.LENGTH_SHORT).show();
                 }
-                startActivity(intent);
             }
         });
 
