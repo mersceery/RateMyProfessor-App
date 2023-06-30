@@ -16,6 +16,7 @@ import com.example.chatappv2.LoginActivity;
 import com.example.chatappv2.R;
 import com.example.chatappv2.allProfs.AllProfsActivity;
 import com.example.chatappv2.fragebogen.FrageBogenActivity;
+import com.example.chatappv2.listEmails.CircleTransform;
 import com.example.chatappv2.listEmails.userlist;
 import com.example.chatappv2.modules.ModulesActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -94,9 +95,9 @@ public class MainMenu extends AppCompatActivity {
                                     String getImgUrl = child.child("profile_pic").getValue(String.class);
 
                                     if(getImgUrl.isEmpty()){
-                                        Picasso.get().load(R.drawable.andre_tate).into(editProfileImg);
+                                        Picasso.get().load(R.drawable.defaultprofilepicture).into(editProfileImg);
                                     } else {
-                                        Picasso.get().load(getImgUrl).placeholder(R.drawable.andre_tate).into(editProfileImg);
+                                        Picasso.get().load(getImgUrl).transform(new CircleTransform()).placeholder(R.drawable.defaultprofilepicture).into(editProfileImg);
                                     }
 
                                     if(teacherRole.equals(getRole)){

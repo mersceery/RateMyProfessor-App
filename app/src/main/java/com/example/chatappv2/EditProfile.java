@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.chatappv2.listEmails.CircleTransform;
 import com.example.chatappv2.listEmails.userlist;
 import com.example.chatappv2.mainMenu.MainMenu;
 import com.google.firebase.auth.AuthCredential;
@@ -66,8 +67,6 @@ public class EditProfile extends AppCompatActivity {
         profilePic = findViewById(R.id.profilePictureinEditProfile);
         changeProfilePicBtn = findViewById(R.id.changeProfilePicBtn);
 
-
-        FirebaseStorage storage = FirebaseStorage.getInstance();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         checkLoggedInUser(currentUser);
@@ -84,9 +83,9 @@ public class EditProfile extends AppCompatActivity {
                         String name = snapshot.child("name").getValue(String.class);
                         String profilePicUrl = snapshot.child("profile_pic").getValue(String.class);
                         if(profilePicUrl.isEmpty()){
-                            Picasso.get().load(R.drawable.andre_tate).into(profilePic);
+                            Picasso.get().load(R.drawable.defaultprofilepicture).transform(new CircleTransform()).into(profilePic);
                         } else {
-                            Picasso.get().load(profilePicUrl).placeholder(R.drawable.andre_tate).into(profilePic);
+                            Picasso.get().load(profilePicUrl).transform(new CircleTransform()).placeholder(R.drawable.defaultprofilepicture).into(profilePic);
                         }
                         editTextName.setText(name);
                         editTextEmail.setText(userEmail);
@@ -193,7 +192,7 @@ public class EditProfile extends AppCompatActivity {
 
         if (requestCode == PICK_IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             Uri imageUri = data.getData();
-            profilePic.setImageURI(data.getData());
+            Picasso.get().load(imageUri).transform(new CircleTransform()).placeholder(R.drawable.defaultprofilepicture).into(profilePic);
             uploadImageToFirebaseStorageAndDatabase(imageUri);
         }
     }

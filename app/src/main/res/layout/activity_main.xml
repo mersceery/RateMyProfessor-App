@@ -49,7 +49,7 @@
             android:layout_marginTop="40dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/user_icon"/>
+            android:src="@drawable/defaultprofilepicture"/>
 
     </RelativeLayout>
 

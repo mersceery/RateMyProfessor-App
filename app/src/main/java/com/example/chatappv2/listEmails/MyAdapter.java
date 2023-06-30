@@ -53,7 +53,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         if (profilePicUrl != null && !profilePicUrl.isEmpty()) {
             Picasso.get().load(profilePicUrl).transform(new CircleTransform()).into(holder.profilePic);
         } else {
-            Picasso.get().load(R.drawable.andre_tate).into(holder.profilePic);
+            Picasso.get().load(R.drawable.defaultprofilepicture).into(holder.profilePic);
         }
 
 
