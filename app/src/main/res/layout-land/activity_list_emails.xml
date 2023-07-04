@@ -37,16 +37,17 @@
         android:id="@+id/scrollView"
         android:layout_width="wrap_content"
         android:layout_height="260dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline16">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:paddingLeft="120dp"
             android:id="@+id/emailList"
             android:layout_width="516dp"
             android:layout_height="238dp"
+            android:paddingLeft="120dp"
             app:layout_constraintBottom_toTopOf="@+id/navigation_bar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
