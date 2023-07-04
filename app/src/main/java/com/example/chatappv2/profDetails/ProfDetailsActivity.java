@@ -92,7 +92,7 @@ public class ProfDetailsActivity extends AppCompatActivity {
         String profName = getIntent().getStringExtra("NAME");
         String profDesc = getIntent().getStringExtra("SHORT_DESC");
         String profImage = getIntent().getStringExtra("IMAGE_URL");
-        
+
         profNametv.setText(profName);
         profDesctv.setText(profDesc);
         Glide.with(ProfDetailsActivity.this)

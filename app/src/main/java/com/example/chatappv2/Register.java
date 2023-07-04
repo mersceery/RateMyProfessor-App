@@ -124,9 +124,11 @@ public class Register extends AppCompatActivity {
 
                 if(nameTxt.isEmpty() || mobileTxt.isEmpty() || emailTxt.isEmpty() || passwordTxt.isEmpty()){
                     Toast.makeText(Register.this, "All Fields Required!", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                     progressDialog.dismiss();
                 }else if (!isValidEmail(emailTxt)) {
                     Toast.makeText(Register.this, "Invalid Email!", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                     progressDialog.dismiss();
                 }else{
                     mAuth.createUserWithEmailAndPassword(emailTxt, passwordTxt)

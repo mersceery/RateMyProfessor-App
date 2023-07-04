@@ -32,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
 
     TextView txtClickToRegister, txtHome;
 
-    ImageView twitterLogin;
 
     @Override
     public void onStart() {
@@ -51,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        twitterLogin = findViewById(R.id.twitterLogo);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -126,14 +124,6 @@ public class LoginActivity extends AppCompatActivity {
                         });
             }
         });
-        twitterLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, TwitterActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-                finish();
-            }
-        });
+
     }
 }
